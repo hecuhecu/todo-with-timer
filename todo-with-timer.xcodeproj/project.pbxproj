@@ -13,6 +13,8 @@
 		FE64BD3627B0DACE006190A5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE64BD3427B0DACE006190A5 /* Main.storyboard */; };
 		FE64BD3827B0DACE006190A5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE64BD3727B0DACE006190A5 /* Assets.xcassets */; };
 		FE64BD3B27B0DACE006190A5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE64BD3927B0DACE006190A5 /* LaunchScreen.storyboard */; };
+		FE64BD4327B109A4006190A5 /* InputTodo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE64BD4227B109A4006190A5 /* InputTodo.storyboard */; };
+		FE64BD4527B109BD006190A5 /* InputTodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE64BD4427B109BD006190A5 /* InputTodoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		FE64BD3727B0DACE006190A5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FE64BD3A27B0DACE006190A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FE64BD3C27B0DACE006190A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FE64BD4227B109A4006190A5 /* InputTodo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = InputTodo.storyboard; sourceTree = "<group>"; };
+		FE64BD4427B109BD006190A5 /* InputTodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTodoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,7 +63,9 @@
 				FE64BD2E27B0DACD006190A5 /* AppDelegate.swift */,
 				FE64BD3027B0DACD006190A5 /* SceneDelegate.swift */,
 				FE64BD3227B0DACD006190A5 /* ViewController.swift */,
+				FE64BD4427B109BD006190A5 /* InputTodoViewController.swift */,
 				FE64BD3427B0DACE006190A5 /* Main.storyboard */,
+				FE64BD4227B109A4006190A5 /* InputTodo.storyboard */,
 				FE64BD3727B0DACE006190A5 /* Assets.xcassets */,
 				FE64BD3927B0DACE006190A5 /* LaunchScreen.storyboard */,
 				FE64BD3C27B0DACE006190A5 /* Info.plist */,
@@ -126,6 +132,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE64BD3B27B0DACE006190A5 /* LaunchScreen.storyboard in Resources */,
+				FE64BD4327B109A4006190A5 /* InputTodo.storyboard in Resources */,
 				FE64BD3827B0DACE006190A5 /* Assets.xcassets in Resources */,
 				FE64BD3627B0DACE006190A5 /* Main.storyboard in Resources */,
 			);
@@ -139,6 +146,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE64BD3327B0DACD006190A5 /* ViewController.swift in Sources */,
+				FE64BD4527B109BD006190A5 /* InputTodoViewController.swift in Sources */,
 				FE64BD2F27B0DACD006190A5 /* AppDelegate.swift in Sources */,
 				FE64BD3127B0DACD006190A5 /* SceneDelegate.swift in Sources */,
 			);
