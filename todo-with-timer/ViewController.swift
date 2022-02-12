@@ -8,10 +8,13 @@
 import UIKit
 import RealmSwift
 
+var orderSize = 0
+
 class ViewController: UIViewController {
-    @IBOutlet weak var tableView: UITableView!
-    var todoItems: Results<TodoData>!
-    var realm = try! Realm()
+    @IBOutlet weak private var tableView: UITableView!
+    private var todoItems: Results<TodoData>!
+    private var realm = try! Realm()
+    private var addBarButtonItem: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,15 +22,43 @@ class ViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         
+        addBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonPressed(_ :)))
+        navigationItem.leftBarButtonItem = editButtonItem
+        navigationItem.rightBarButtonItem = addBarButtonItem
+        
         todoItems = realm.objects(TodoData.self).sorted(byKeyPath: "order")
+        updateOrder()
         let todo = TodoData()
         todo.title = "Swift"
         todo.isDone = false
         todo.timerValue = 0
-        todo.order = 0
+        todo.order = orderSize
         try! realm.write {
             realm.add(todo)
         }
+    }
+    
+    private func updateOrder() {
+        var num = 0;
+        try! realm.write {
+            for todo in todoItems {
+                todo.order = num
+                num += 1
+            }
+        }
+        orderSize = num
+        print("orderSize: \(orderSize)")
+    }
+    
+    @objc func addButtonPressed(_ sender: UIBarButtonItem) {
+        
+    }
+    
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        tableView.setEditing(editing, animated: true)
+        tableView.isEditing = editing
+        addBarButtonItem.isEnabled.toggle()
     }
 }
 
@@ -60,9 +91,29 @@ extension ViewController: UITableViewDelegate {
                 realm.delete(todo)
             }
             tableView.deleteRows(at: [indexPath], with: .fade)
-            for index in todoItems {
-                print("\(index)だよ")
+            updateOrder()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        try! realm.write {
+            let sourceObject = todoItems[sourceIndexPath.row]
+            let destinationObject = todoItems[destinationIndexPath.row]
+
+            let destinationObjectOrder = destinationObject.order
+
+            if sourceIndexPath.row < destinationIndexPath.row {
+                for index in sourceIndexPath.row...destinationIndexPath.row {
+                    let object = todoItems[index]
+                    object.order -= 1
+                }
+            } else {
+                for index in (destinationIndexPath.row..<sourceIndexPath.row).reversed() {
+                    let object = todoItems[index]
+                    object.order += 1
+                }
             }
+            sourceObject.order = destinationObjectOrder
         }
     }
 }
