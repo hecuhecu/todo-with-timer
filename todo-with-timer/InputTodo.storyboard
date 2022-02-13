@@ -52,6 +52,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="addButton" destination="ER2-Rz-NDF" id="H5b-ef-WMU"/>
                         <outlet property="textField" destination="2O7-cL-8Vh" id="yd0-7Y-TH8"/>
                     </connections>
                 </viewController>

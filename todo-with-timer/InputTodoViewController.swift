@@ -10,17 +10,19 @@ import RealmSwift
 
 class InputTodoViewController: UIViewController {
     @IBOutlet weak private var textField: UITextField!
+    @IBOutlet weak var addButton: UIButton!
     private let realm = try! Realm()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        textField.delegate = self
         textField.becomeFirstResponder()
 
         NotificationCenter.default.addObserver(self, selector: #selector(resignTextField(notification:)), name: NSNotification.Name("resign"), object: nil)
     }
     
-    @IBAction private func tapAddButton(_ sender: Any) {
+    @IBAction private func tapAddButton(_ sender: UIButton) {
         if textField.text == "" {
             //NotificationCenter.default.post(name: NSNotification.Name("resign"), object: nil)　なんか分からんけどこれ無くてもtextFieldも同じ速さで消えてくれる
             NotificationCenter.default.post(name: NSNotification.Name("remove"), object: nil)
@@ -46,5 +48,13 @@ class InputTodoViewController: UIViewController {
 extension InputTodoViewController {
     @objc func resignTextField(notification: NSNotification) {
         textField.resignFirstResponder()
+    }
+}
+
+// MARK: - UITextFiedlDelegate
+extension InputTodoViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        tapAddButton(addButton)
+        return true
     }
 }
