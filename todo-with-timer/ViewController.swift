@@ -7,38 +7,54 @@
 
 import UIKit
 import RealmSwift
+import FloatingPanel
 
 var orderSize = 0
 
 class ViewController: UIViewController {
     @IBOutlet weak private var tableView: UITableView!
     private var todoItems: Results<TodoData>!
-    private var realm = try! Realm()
     private var addBarButtonItem: UIBarButtonItem!
+    private let realm = try! Realm()
+    private let fpc = FloatingPanelController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.dataSource = self
         tableView.delegate = self
+        fpc.delegate = self
+        fpc.layout = CustomFloatingPanelLayout()
         
         addBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonPressed(_ :)))
         navigationItem.leftBarButtonItem = editButtonItem
         navigationItem.rightBarButtonItem = addBarButtonItem
         
         todoItems = realm.objects(TodoData.self).sorted(byKeyPath: "order")
-        updateOrder()
-        let todo = TodoData()
-        todo.title = "Swift"
-        todo.isDone = false
-        todo.timerValue = 0
-        todo.order = orderSize
-        try! realm.write {
-            realm.add(todo)
+        updateTodoOrder()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadCollectionView(notification:)), name: NSNotification.Name("reload"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(removeFloatingPanel(notification:)), name: NSNotification.Name("remove"), object: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if let indexPath = tableView.indexPathForSelectedRow{
+            tableView.deselectRow(at: indexPath, animated: true)
         }
     }
     
-    private func updateOrder() {
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        tableView.setEditing(editing, animated: true)
+        tableView.isEditing = editing
+        addBarButtonItem.isEnabled.toggle()
+    }
+}
+
+//publicのfuncが出てきたらprivate extensionに変える
+// MARK: - Functions
+extension ViewController {
+    private func updateTodoOrder() {
         var num = 0;
         try! realm.write {
             for todo in todoItems {
@@ -50,18 +66,36 @@ class ViewController: UIViewController {
         print("orderSize: \(orderSize)")
     }
     
-    @objc func addButtonPressed(_ sender: UIBarButtonItem) {
-        
+    private func toggleBarButtonItem() {
+        addBarButtonItem.isEnabled.toggle()
+        editButtonItem.isEnabled.toggle()
     }
     
-    override func setEditing(_ editing: Bool, animated: Bool) {
-        super.setEditing(editing, animated: animated)
-        tableView.setEditing(editing, animated: true)
-        tableView.isEditing = editing
-        addBarButtonItem.isEnabled.toggle()
+    @objc private func addButtonPressed(_ sender: UIBarButtonItem) {
+        let storyboard = UIStoryboard(name: "InputTodo", bundle: nil)
+        let contentVC = storyboard.instantiateViewController(withIdentifier: "InputTodo") as! InputTodoViewController
+        fpc.set(contentViewController: contentVC)
+        
+        let appearance = SurfaceAppearance()
+        appearance.cornerRadius = 9.0
+        fpc.surfaceView.appearance = appearance
+        fpc.backdropView.dismissalTapGestureRecognizer.isEnabled = true
+        fpc.addPanel(toParent: self)
+        fpc.move(to: .full, animated: true, completion: nil)
+        
+        toggleBarButtonItem()
     }
+    
+    @objc private func reloadCollectionView(notification: NSNotification) {
+        self.tableView.reloadData()
+     }
+    
+    @objc private func removeFloatingPanel(notification: NSNotification) {
+        fpc.removePanelFromParent(animated: true)
+     }
 }
 
+// MARK: - UITableViewDataSource
 extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return todoItems.count
@@ -83,6 +117,7 @@ extension ViewController: UITableViewDataSource {
     }
 }
 
+// MARK: - UITableViewDelegate
 extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
@@ -91,7 +126,7 @@ extension ViewController: UITableViewDelegate {
                 realm.delete(todo)
             }
             tableView.deleteRows(at: [indexPath], with: .fade)
-            updateOrder()
+            updateTodoOrder()
         }
     }
     
@@ -115,5 +150,20 @@ extension ViewController: UITableViewDelegate {
             }
             sourceObject.order = destinationObjectOrder
         }
+    }
+}
+
+// MARK: - FloatingPanelControllerDelegate
+extension ViewController: FloatingPanelControllerDelegate {
+    func floatingPanelDidChangeState(_ fpc: FloatingPanelController) {
+        if fpc.state == .tip {
+            NotificationCenter.default.post(name: NSNotification.Name("resign"), object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name("remove"), object: nil)
+        }
+    }
+    
+    func floatingPanelWillRemove(_ fpc: FloatingPanelController) {
+        NotificationCenter.default.post(name: NSNotification.Name("resign"), object: nil)
+        toggleBarButtonItem()
     }
 }
