@@ -16,25 +16,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="8gg-uc-ggt">
-                                <rect key="frame" x="0.0" y="54" width="414" height="34"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="8gg-uc-ggt" userLabel="Input Title Stack View">
+                                <rect key="frame" x="5" y="64" width="404" height="34"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="やること" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2O7-cL-8Vh">
-                                        <rect key="frame" x="0.0" y="0.0" width="349" height="34"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="やること" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="2O7-cL-8Vh">
+                                        <rect key="frame" x="0.0" y="0.0" width="344" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ER2-Rz-NDF">
-                                        <rect key="frame" x="359" y="0.0" width="55" height="34"/>
-                                        <color key="backgroundColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <rect key="frame" x="349" y="0.0" width="55" height="34"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" title="追加">
                                             <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
-                                        <buttonConfiguration key="configuration" style="plain" title="追加">
+                                        <buttonConfiguration key="configuration" style="plain" title="追加" cornerStyle="small">
+                                            <backgroundConfiguration key="background">
+                                                <color key="backgroundColor" red="1" green="0.57810515169999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </backgroundConfiguration>
                                             <fontDescription key="titleFontDescription" type="boldSystem" pointSize="15"/>
-                                            <color key="baseForegroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="baseForegroundColor" systemColor="secondarySystemBackgroundColor"/>
                                         </buttonConfiguration>
                                         <connections>
                                             <action selector="tapAddButton:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="cDT-2v-pa5"/>
@@ -42,18 +44,51 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4g8-FM-4po" userLabel="Time Picker View">
+                                <rect key="frame" x="0.0" y="108" width="414" height="216"/>
+                            </pickerView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="EwH-sf-Sw6" userLabel="Time Unit Stack View">
+                                <rect key="frame" x="0.0" y="334" width="414" height="20.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="hours" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rLv-Ei-wSx">
+                                        <rect key="frame" x="0.0" y="0.0" width="138" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="minutes" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ZL-vH-3kz">
+                                        <rect key="frame" x="138" y="0.0" width="138" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="seconds" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PSE-bu-ATz">
+                                        <rect key="frame" x="276" y="0.0" width="138" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="8gg-uc-ggt" secondAttribute="trailing" id="MLh-oy-0a8"/>
-                            <constraint firstItem="8gg-uc-ggt" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="10" id="Q8l-aP-L1x"/>
-                            <constraint firstItem="8gg-uc-ggt" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="lXY-IG-6q4"/>
+                            <constraint firstItem="EwH-sf-Sw6" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="7gn-u5-vLt"/>
+                            <constraint firstItem="4g8-FM-4po" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="Ba2-UL-Q2g"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="8gg-uc-ggt" secondAttribute="trailing" constant="5" id="MLh-oy-0a8"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="EwH-sf-Sw6" secondAttribute="trailing" id="ORf-Cj-YLW"/>
+                            <constraint firstItem="8gg-uc-ggt" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="20" id="Q8l-aP-L1x"/>
+                            <constraint firstItem="4g8-FM-4po" firstAttribute="top" secondItem="8gg-uc-ggt" secondAttribute="bottom" constant="10" id="fUc-sd-Eaz"/>
+                            <constraint firstItem="8gg-uc-ggt" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="5" id="lXY-IG-6q4"/>
+                            <constraint firstItem="EwH-sf-Sw6" firstAttribute="top" secondItem="4g8-FM-4po" secondAttribute="bottom" constant="10" id="ofX-xy-bK6"/>
+                            <constraint firstItem="4g8-FM-4po" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="pdc-rJ-vfN"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="addButton" destination="ER2-Rz-NDF" id="H5b-ef-WMU"/>
                         <outlet property="textField" destination="2O7-cL-8Vh" id="yd0-7Y-TH8"/>
+                        <outlet property="timePicker" destination="4g8-FM-4po" id="1wv-3Q-J1H"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -62,6 +97,9 @@
         </scene>
     </scenes>
     <resources>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemGroupedBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

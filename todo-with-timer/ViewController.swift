@@ -40,6 +40,7 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         if let indexPath = tableView.indexPathForSelectedRow{
             tableView.deselectRow(at: indexPath, animated: true)
+            print(todoItems[indexPath.row])
         }
     }
     
@@ -88,11 +89,11 @@ extension ViewController {
     
     @objc private func reloadCollectionView(notification: NSNotification) {
         self.tableView.reloadData()
-     }
+    }
     
     @objc private func removeFloatingPanel(notification: NSNotification) {
         fpc.removePanelFromParent(animated: true)
-     }
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -100,7 +101,7 @@ extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return todoItems.count
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let todo = todoItems[indexPath.row]
@@ -119,6 +120,10 @@ extension ViewController: UITableViewDataSource {
 
 // MARK: - UITableViewDelegate
 extension ViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        return "削除"
+    }
+    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             try! realm.write {
@@ -134,9 +139,9 @@ extension ViewController: UITableViewDelegate {
         try! realm.write {
             let sourceObject = todoItems[sourceIndexPath.row]
             let destinationObject = todoItems[destinationIndexPath.row]
-
+            
             let destinationObjectOrder = destinationObject.order
-
+            
             if sourceIndexPath.row < destinationIndexPath.row {
                 for index in sourceIndexPath.row...destinationIndexPath.row {
                     let object = todoItems[index]
