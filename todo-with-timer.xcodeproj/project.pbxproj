@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		CED7047D1DB00B184F90DFA5 /* Pods_todo_with_timer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79AEFD36840D28A74EDB463B /* Pods_todo_with_timer.framework */; };
+		FE62BDB027BB99FC00D2B6D5 /* CustomAddBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE62BDAF27BB99FC00D2B6D5 /* CustomAddBarButton.swift */; };
+		FE62BDB227BBA55600D2B6D5 /* CustomEditBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE62BDB127BBA55600D2B6D5 /* CustomEditBarButton.swift */; };
 		FE64BD2F27B0DACD006190A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE64BD2E27B0DACD006190A5 /* AppDelegate.swift */; };
 		FE64BD3127B0DACD006190A5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE64BD3027B0DACD006190A5 /* SceneDelegate.swift */; };
 		FE64BD3327B0DACD006190A5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE64BD3227B0DACD006190A5 /* ViewController.swift */; };
@@ -26,6 +28,8 @@
 		0DD514A06D6CA297AE4F564E /* Pods-todo-with-timer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-todo-with-timer.release.xcconfig"; path = "Target Support Files/Pods-todo-with-timer/Pods-todo-with-timer.release.xcconfig"; sourceTree = "<group>"; };
 		79AEFD36840D28A74EDB463B /* Pods_todo_with_timer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_todo_with_timer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECDB4FED43F9851246F47AC2 /* Pods-todo-with-timer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-todo-with-timer.debug.xcconfig"; path = "Target Support Files/Pods-todo-with-timer/Pods-todo-with-timer.debug.xcconfig"; sourceTree = "<group>"; };
+		FE62BDAF27BB99FC00D2B6D5 /* CustomAddBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAddBarButton.swift; sourceTree = "<group>"; };
+		FE62BDB127BBA55600D2B6D5 /* CustomEditBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEditBarButton.swift; sourceTree = "<group>"; };
 		FE64BD2B27B0DACD006190A5 /* todo-with-timer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "todo-with-timer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE64BD2E27B0DACD006190A5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FE64BD3027B0DACD006190A5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -98,6 +102,8 @@
 				FE64BD4427B109BD006190A5 /* InputTodoViewController.swift */,
 				FEBB20DA27B77EF100456BE3 /* TimerViewController.swift */,
 				FE950C9A27B8E85D002FC63A /* CustomFloatingPanelLayout.swift */,
+				FE62BDAF27BB99FC00D2B6D5 /* CustomAddBarButton.swift */,
+				FE62BDB127BBA55600D2B6D5 /* CustomEditBarButton.swift */,
 				FEBB20DE27B7834700456BE3 /* TodoData.swift */,
 				FE64BD3427B0DACE006190A5 /* Main.storyboard */,
 				FE64BD4227B109A4006190A5 /* InputTodo.storyboard */,
@@ -228,8 +234,10 @@
 			files = (
 				FEBB20DB27B77EF100456BE3 /* TimerViewController.swift in Sources */,
 				FE64BD3327B0DACD006190A5 /* ViewController.swift in Sources */,
+				FE62BDB227BBA55600D2B6D5 /* CustomEditBarButton.swift in Sources */,
 				FE64BD4527B109BD006190A5 /* InputTodoViewController.swift in Sources */,
 				FE64BD2F27B0DACD006190A5 /* AppDelegate.swift in Sources */,
+				FE62BDB027BB99FC00D2B6D5 /* CustomAddBarButton.swift in Sources */,
 				FE64BD3127B0DACD006190A5 /* SceneDelegate.swift in Sources */,
 				FEBB20DF27B7834700456BE3 /* TodoData.swift in Sources */,
 				FE950C9B27B8E85D002FC63A /* CustomFloatingPanelLayout.swift in Sources */,

@@ -8,6 +8,7 @@
 import UIKit
 import RealmSwift
 import FloatingPanel
+import SwiftUI
 
 var orderSize = 0
 
@@ -15,6 +16,7 @@ class ViewController: UIViewController {
     @IBOutlet weak private var tableView: UITableView!
     private var todoItems: Results<TodoData>!
     private var addBarButtonItem: UIBarButtonItem!
+    private var editBarButtonItem: UIBarButtonItem!
     private let realm = try! Realm()
     private let fpc = FloatingPanelController()
     
@@ -26,9 +28,14 @@ class ViewController: UIViewController {
         fpc.delegate = self
         fpc.layout = CustomFloatingPanelLayout()
         
-        addBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonPressed(_ :)))
-        navigationItem.leftBarButtonItem = editButtonItem
+        let add = CustomAddBarButton()
+        let edit = CustomEditBarButton()
+        add.addTarget(self, action: #selector(addButtonPressed(_:)), for: .touchUpInside)
+        edit.addTarget(self, action: #selector(editButtonPressed(_:)), for: .touchUpInside)
+        addBarButtonItem = UIBarButtonItem(customView: add)
+        editBarButtonItem = UIBarButtonItem(customView: edit)
         navigationItem.rightBarButtonItem = addBarButtonItem
+        navigationItem.leftBarButtonItem = editBarButtonItem
         
         todoItems = realm.objects(TodoData.self).sorted(byKeyPath: "order")
         updateTodoOrder()
@@ -40,15 +47,7 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         if let indexPath = tableView.indexPathForSelectedRow{
             tableView.deselectRow(at: indexPath, animated: true)
-            print(todoItems[indexPath.row])
         }
-    }
-    
-    override func setEditing(_ editing: Bool, animated: Bool) {
-        super.setEditing(editing, animated: animated)
-        tableView.setEditing(editing, animated: true)
-        tableView.isEditing = editing
-        addBarButtonItem.isEnabled.toggle()
     }
 }
 
@@ -68,11 +67,11 @@ extension ViewController {
     }
     
     private func toggleBarButtonItem() {
-        addBarButtonItem.isEnabled.toggle()
-        editButtonItem.isEnabled.toggle()
+        addBarButtonItem.customView?.isHidden.toggle()
+        editBarButtonItem.customView?.isHidden.toggle()
     }
     
-    @objc private func addButtonPressed(_ sender: UIBarButtonItem) {
+    @objc private func addButtonPressed(_ sender: UIButton) {
         let storyboard = UIStoryboard(name: "InputTodo", bundle: nil)
         let contentVC = storyboard.instantiateViewController(withIdentifier: "InputTodo") as! InputTodoViewController
         fpc.set(contentViewController: contentVC)
@@ -85,6 +84,19 @@ extension ViewController {
         fpc.move(to: .full, animated: true, completion: nil)
         
         toggleBarButtonItem()
+    }
+    
+    @objc private func editButtonPressed(_ sender: UIButton) {
+        let editButtonTitle = sender.titleLabel?.text
+        if editButtonTitle == "編集" {
+            tableView.setEditing(true, animated: true)
+            sender.setTitle("完了", for: .normal)
+        } else {
+            tableView.setEditing(false, animated: true)
+            sender.setTitle("編集", for: .normal)
+        }
+        
+        addBarButtonItem.customView?.isHidden.toggle()
     }
     
     @objc private func reloadCollectionView(notification: NSNotification) {

@@ -5,7 +5,6 @@
 //  Created by 河村宇記 on 2022/02/13.
 //
 
-import Foundation
 import FloatingPanel
 
 class CustomFloatingPanelLayout: FloatingPanelLayout {
