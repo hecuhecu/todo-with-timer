@@ -16,16 +16,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="8gg-uc-ggt" userLabel="Input Title Stack View">
-                                <rect key="frame" x="5" y="64" width="404" height="34"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8gg-uc-ggt" userLabel="Input Title Stack View">
+                                <rect key="frame" x="0.0" y="64" width="414" height="34"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="やること" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="2O7-cL-8Vh">
-                                        <rect key="frame" x="0.0" y="0.0" width="344" height="34"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="359" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ER2-Rz-NDF">
-                                        <rect key="frame" x="349" y="0.0" width="55" height="34"/>
+                                        <rect key="frame" x="359" y="0.0" width="55" height="34"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" title="追加">
@@ -76,11 +76,11 @@
                         <constraints>
                             <constraint firstItem="EwH-sf-Sw6" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="7gn-u5-vLt"/>
                             <constraint firstItem="4g8-FM-4po" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="Ba2-UL-Q2g"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="8gg-uc-ggt" secondAttribute="trailing" constant="5" id="MLh-oy-0a8"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="8gg-uc-ggt" secondAttribute="trailing" id="MLh-oy-0a8"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="EwH-sf-Sw6" secondAttribute="trailing" id="ORf-Cj-YLW"/>
                             <constraint firstItem="8gg-uc-ggt" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="20" id="Q8l-aP-L1x"/>
                             <constraint firstItem="4g8-FM-4po" firstAttribute="top" secondItem="8gg-uc-ggt" secondAttribute="bottom" constant="10" id="fUc-sd-Eaz"/>
-                            <constraint firstItem="8gg-uc-ggt" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="5" id="lXY-IG-6q4"/>
+                            <constraint firstItem="8gg-uc-ggt" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="lXY-IG-6q4"/>
                             <constraint firstItem="EwH-sf-Sw6" firstAttribute="top" secondItem="4g8-FM-4po" secondAttribute="bottom" constant="10" id="ofX-xy-bK6"/>
                             <constraint firstItem="4g8-FM-4po" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="pdc-rJ-vfN"/>
                         </constraints>

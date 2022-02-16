@@ -63,7 +63,6 @@ extension ViewController {
             }
         }
         orderSize = num
-        print("orderSize: \(orderSize)")
     }
     
     private func toggleBarButtonItem() {

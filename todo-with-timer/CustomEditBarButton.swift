@@ -18,6 +18,41 @@ class CustomEditBarButton: UIButton {
         setUp()
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        touchStartAnimation()
+    }
+    
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesCancelled(touches, with: event)
+        touchEndAnimation()
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        touchEndAnimation()
+    }
+    
+    private func touchStartAnimation() {
+        UIView.animate(withDuration: 0.1,
+                       delay: 0.0,
+                       options: UIView.AnimationOptions.curveEaseIn, animations: {
+            self.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
+            
+        },
+                       completion: nil)
+    }
+    
+    private func touchEndAnimation() {
+        UIView.animate(withDuration: 0.1,
+                       delay:0.0,
+                       options: UIView.AnimationOptions.curveEaseIn,
+                       animations: {
+            self.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+        },
+                       completion: nil)
+    }
+    
     private func setUp() {
         setTitle("編集", for: .normal)
         setTitleColor(.systemOrange, for: .normal)
