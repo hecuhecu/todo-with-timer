@@ -49,6 +49,19 @@ class ViewController: UIViewController {
             tableView.deselectRow(at: indexPath, animated: true)
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showTimerSegue" {
+            guard let indexPath = tableView.indexPathForSelectedRow else {
+                return
+            }
+            guard let destination = segue.destination as? TimerViewController else {
+                return
+            }
+            
+            destination.todo = todoItems[indexPath.row]
+        }
+    }
 }
 
 //publicのfuncが出てきたらprivate extensionに変える
