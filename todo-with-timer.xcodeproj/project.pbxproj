@@ -19,6 +19,8 @@
 		FE64BD4327B109A4006190A5 /* InputTodo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE64BD4227B109A4006190A5 /* InputTodo.storyboard */; };
 		FE64BD4527B109BD006190A5 /* InputTodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE64BD4427B109BD006190A5 /* InputTodoViewController.swift */; };
 		FE950C9B27B8E85D002FC63A /* CustomFloatingPanelLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE950C9A27B8E85D002FC63A /* CustomFloatingPanelLayout.swift */; };
+		FEA74B3727BE0BE600E5FDA2 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA74B3527BE0BE600E5FDA2 /* CustomTableViewCell.swift */; };
+		FEA74B3827BE0BE600E5FDA2 /* CustomTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEA74B3627BE0BE600E5FDA2 /* CustomTableViewCell.xib */; };
 		FEBB20DB27B77EF100456BE3 /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBB20DA27B77EF100456BE3 /* TimerViewController.swift */; };
 		FEBB20DD27B77EFC00456BE3 /* Timer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FEBB20DC27B77EFC00456BE3 /* Timer.storyboard */; };
 		FEBB20DF27B7834700456BE3 /* TodoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBB20DE27B7834700456BE3 /* TodoData.swift */; };
@@ -41,6 +43,8 @@
 		FE64BD4227B109A4006190A5 /* InputTodo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = InputTodo.storyboard; sourceTree = "<group>"; };
 		FE64BD4427B109BD006190A5 /* InputTodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTodoViewController.swift; sourceTree = "<group>"; };
 		FE950C9A27B8E85D002FC63A /* CustomFloatingPanelLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFloatingPanelLayout.swift; sourceTree = "<group>"; };
+		FEA74B3527BE0BE600E5FDA2 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
+		FEA74B3627BE0BE600E5FDA2 /* CustomTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomTableViewCell.xib; sourceTree = "<group>"; };
 		FEBB20DA27B77EF100456BE3 /* TimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
 		FEBB20DC27B77EFC00456BE3 /* Timer.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Timer.storyboard; sourceTree = "<group>"; };
 		FEBB20DE27B7834700456BE3 /* TodoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoData.swift; sourceTree = "<group>"; };
@@ -105,6 +109,8 @@
 				FE950C9A27B8E85D002FC63A /* CustomFloatingPanelLayout.swift */,
 				FE62BDAF27BB99FC00D2B6D5 /* CustomAddBarButton.swift */,
 				FE62BDB127BBA55600D2B6D5 /* CustomEditBarButton.swift */,
+				FEA74B3527BE0BE600E5FDA2 /* CustomTableViewCell.swift */,
+				FEA74B3627BE0BE600E5FDA2 /* CustomTableViewCell.xib */,
 				FE64BD3427B0DACE006190A5 /* Main.storyboard */,
 				FE64BD4227B109A4006190A5 /* InputTodo.storyboard */,
 				FEBB20DC27B77EFC00456BE3 /* Timer.storyboard */,
@@ -177,6 +183,7 @@
 			files = (
 				FEBB20DD27B77EFC00456BE3 /* Timer.storyboard in Resources */,
 				FE64BD3B27B0DACE006190A5 /* LaunchScreen.storyboard in Resources */,
+				FEA74B3827BE0BE600E5FDA2 /* CustomTableViewCell.xib in Resources */,
 				FE64BD4327B109A4006190A5 /* InputTodo.storyboard in Resources */,
 				FE64BD3827B0DACE006190A5 /* Assets.xcassets in Resources */,
 				FE64BD3627B0DACE006190A5 /* Main.storyboard in Resources */,
@@ -238,6 +245,7 @@
 				FE64BD4527B109BD006190A5 /* InputTodoViewController.swift in Sources */,
 				FE64BD2F27B0DACD006190A5 /* AppDelegate.swift in Sources */,
 				FE62BDB027BB99FC00D2B6D5 /* CustomAddBarButton.swift in Sources */,
+				FEA74B3727BE0BE600E5FDA2 /* CustomTableViewCell.swift in Sources */,
 				FE64BD3127B0DACD006190A5 /* SceneDelegate.swift in Sources */,
 				FEBB20DF27B7834700456BE3 /* TodoData.swift in Sources */,
 				FE950C9B27B8E85D002FC63A /* CustomFloatingPanelLayout.swift in Sources */,

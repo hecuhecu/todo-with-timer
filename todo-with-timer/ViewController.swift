@@ -1,14 +1,6 @@
-//
-//  ViewController.swift
-//  todo-with-timer
-//
-//  Created by 河村宇記 on 2022/02/07.
-//
-
 import UIKit
 import RealmSwift
 import FloatingPanel
-import SwiftUI
 
 var orderSize = 0
 
@@ -23,25 +15,20 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.register(UINib(nibName: "CustomTableViewCell", bundle: nil), forCellReuseIdentifier: "CustomCell")
         tableView.dataSource = self
         tableView.delegate = self
         fpc.delegate = self
         fpc.layout = CustomFloatingPanelLayout()
         
-        let add = CustomAddBarButton()
-        let edit = CustomEditBarButton()
-        add.addTarget(self, action: #selector(addButtonPressed(_:)), for: .touchUpInside)
-        edit.addTarget(self, action: #selector(editButtonPressed(_:)), for: .touchUpInside)
-        addBarButtonItem = UIBarButtonItem(customView: add)
-        editBarButtonItem = UIBarButtonItem(customView: edit)
-        navigationItem.rightBarButtonItem = addBarButtonItem
-        navigationItem.leftBarButtonItem = editBarButtonItem
+        setupBarButton()
         
         todoItems = realm.objects(TodoData.self).sorted(byKeyPath: "order")
         updateTodoOrder()
         
         NotificationCenter.default.addObserver(self, selector: #selector(reloadCollectionView(notification:)), name: NSNotification.Name("reload"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(removeFloatingPanel(notification:)), name: NSNotification.Name("remove"), object: nil)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -58,15 +45,27 @@ class ViewController: UIViewController {
             guard let destination = segue.destination as? TimerViewController else {
                 return
             }
-            
             destination.todo = todoItems[indexPath.row]
         }
     }
 }
 
-//publicのfuncが出てきたらprivate extensionに変える
 // MARK: - Functions
 extension ViewController {
+    private func setupBarButton() {
+        let add = CustomAddBarButton()
+        let edit = CustomEditBarButton()
+        
+        add.addTarget(self, action: #selector(addButtonPressed(_:)), for: .touchUpInside)
+        edit.addTarget(self, action: #selector(editButtonPressed(_:)), for: .touchUpInside)
+        
+        addBarButtonItem = UIBarButtonItem(customView: add)
+        editBarButtonItem = UIBarButtonItem(customView: edit)
+        
+        navigationItem.rightBarButtonItem = addBarButtonItem
+        navigationItem.leftBarButtonItem = editBarButtonItem
+    }
+    
     private func updateTodoOrder() {
         var num = 0;
         try! realm.write {
@@ -112,7 +111,7 @@ extension ViewController {
     }
     
     @objc private func reloadCollectionView(notification: NSNotification) {
-        self.tableView.reloadData()
+        tableView.reloadData()
     }
     
     @objc private func removeFloatingPanel(notification: NSNotification) {
@@ -127,17 +126,10 @@ extension ViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell", for: indexPath) as! CustomTableViewCell
         let todo = todoItems[indexPath.row]
-        if #available(iOS 14.0, *) {
-            // iOS14以降の推奨
-            var content = cell.defaultContentConfiguration()
-            content.text = todo.title
-            cell.contentConfiguration = content
-        } else {
-            // iOS13以前
-            cell.textLabel?.text = todo.title
-        }
+        cell.setup(title: todo.title, isDone: todo.isDone, indexPath: indexPath)
+
         return cell
     }
 }
@@ -155,6 +147,7 @@ extension ViewController: UITableViewDelegate {
                 realm.delete(todo)
             }
             tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.reloadData()
             updateTodoOrder()
         }
     }
@@ -179,6 +172,12 @@ extension ViewController: UITableViewDelegate {
             }
             sourceObject.order = destinationObjectOrder
         }
+        
+        tableView.reloadData()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "showTimerSegue", sender: indexPath)
     }
 }
 

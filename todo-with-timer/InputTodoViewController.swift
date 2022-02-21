@@ -1,10 +1,3 @@
-//
-//  InputTodoViewController.swift
-//  todo-with-timer
-//
-//  Created by 河村宇記 on 2022/02/07.
-//
-
 import UIKit
 import RealmSwift
 
@@ -27,7 +20,6 @@ class InputTodoViewController: UIViewController {
     
     @IBAction private func tapAddButton(_ sender: UIButton) {
         if textField.text == "" {
-            //NotificationCenter.default.post(name: NSNotification.Name("resign"), object: nil)　なんか分からんけどこれ無くてもtextFieldも同じ速さで消えてくれる
             NotificationCenter.default.post(name: NSNotification.Name("remove"), object: nil)
             return
         }
@@ -41,6 +33,7 @@ class InputTodoViewController: UIViewController {
         todo.timerValue = hours * 3600 + minutes * 60 + seconds
         todo.order = orderSize
         orderSize += 1
+        print(todo)
         
         try! realm.write {
             realm.add(todo)

@@ -1,10 +1,3 @@
-//
-//  CustomEditBarButton.swift
-//  todo-with-timer
-//
-//  Created by 河村宇記 on 2022/02/15.
-//
-
 import UIKit
 
 class CustomEditBarButton: UIButton {

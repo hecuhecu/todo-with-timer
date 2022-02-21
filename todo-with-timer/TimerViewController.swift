@@ -1,10 +1,3 @@
-//
-//  TimerViewController.swift
-//  todo-with-timer
-//
-//  Created by 河村宇記 on 2022/02/12.
-//
-
 import UIKit
 import RealmSwift
 
@@ -23,7 +16,7 @@ class TimerViewController: UIViewController {
         timeLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 50, weight: .bold)
         displayTime()
         invalidateButton(cancelButton)
-        if todo.timerValue - elapsedTime <= 0 {
+        if todo.timerValue - elapsedTime <= 0 || todo.isDone {
             invalidateButton(startButton)
         }
     }
@@ -77,6 +70,7 @@ extension TimerViewController {
             try! realm.write() {
                 todo.isDone = true
             }
+            NotificationCenter.default.post(name: NSNotification.Name("reload"), object: nil)
         }
         displayTime()
     }
