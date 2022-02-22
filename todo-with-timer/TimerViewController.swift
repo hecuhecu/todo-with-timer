@@ -13,12 +13,21 @@ class TimerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.title = todo.title
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(editBarButtonTapped(_:)))        
+        
         timeLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 50, weight: .bold)
         displayTime()
         invalidateButton(cancelButton)
         if todo.timerValue - elapsedTime <= 0 || todo.isDone {
             invalidateButton(startButton)
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationItem.title = todo.title
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -28,10 +37,24 @@ class TimerViewController: UIViewController {
             timer.invalidate()
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showEditSegue" {
+            guard let destination = segue.destination as? EditTodoViewController else {
+                return
+            }
+            
+            destination.todo = todo
+        }
+    }
 }
 
 // MARK: - Functions
 extension TimerViewController {
+    @objc private func editBarButtonTapped(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "showEditSegue", sender: nil)
+    }
+    
     @IBAction private func tapStartButton(_ sender: Any) {
         if timer.isValid {
             timer.invalidate()

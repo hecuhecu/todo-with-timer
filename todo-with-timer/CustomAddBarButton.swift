@@ -47,7 +47,6 @@ class CustomAddBarButton: UIButton {
     }
     
     private func setUp() {
-        //frame = CGRect(x: 0, y: 0, width: 100, height: 100)
         setTitle("+", for: .normal)
         setTitleColor(.systemOrange, for: .normal)
         titleLabel?.font = UIFont.systemFont(ofSize: 48, weight: .bold)

@@ -56,8 +56,8 @@ extension ViewController {
         let add = CustomAddBarButton()
         let edit = CustomEditBarButton()
         
-        add.addTarget(self, action: #selector(addButtonPressed(_:)), for: .touchUpInside)
-        edit.addTarget(self, action: #selector(editButtonPressed(_:)), for: .touchUpInside)
+        add.addTarget(self, action: #selector(addButtonTapped(_:)), for: .touchUpInside)
+        edit.addTarget(self, action: #selector(editButtonTapped(_:)), for: .touchUpInside)
         
         addBarButtonItem = UIBarButtonItem(customView: add)
         editBarButtonItem = UIBarButtonItem(customView: edit)
@@ -82,7 +82,7 @@ extension ViewController {
         editBarButtonItem.customView?.isHidden.toggle()
     }
     
-    @objc private func addButtonPressed(_ sender: UIButton) {
+    @objc private func addButtonTapped(_ sender: UIButton) {
         let storyboard = UIStoryboard(name: "InputTodo", bundle: nil)
         let contentVC = storyboard.instantiateViewController(withIdentifier: "InputTodo") as! InputTodoViewController
         fpc.set(contentViewController: contentVC)
@@ -97,7 +97,7 @@ extension ViewController {
         toggleBarButtonItem()
     }
     
-    @objc private func editButtonPressed(_ sender: UIButton) {
+    @objc private func editButtonTapped(_ sender: UIButton) {
         let editButtonTitle = sender.titleLabel?.text
         if editButtonTitle == "編集" {
             tableView.setEditing(true, animated: true)

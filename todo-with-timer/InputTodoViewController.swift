@@ -33,7 +33,6 @@ class InputTodoViewController: UIViewController {
         todo.timerValue = hours * 3600 + minutes * 60 + seconds
         todo.order = orderSize
         orderSize += 1
-        print(todo)
         
         try! realm.write {
             realm.add(todo)

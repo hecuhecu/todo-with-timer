@@ -68,11 +68,22 @@
                         <outlet property="cancelButton" destination="Mu4-Kc-duz" id="njw-ru-w03"/>
                         <outlet property="startButton" destination="LKA-w8-DX6" id="fbI-gT-6QN"/>
                         <outlet property="timeLabel" destination="P4w-HD-v2A" id="zc0-5N-53l"/>
+                        <segue destination="WEa-Fd-VtZ" kind="show" identifier="showEditSegue" id="Tup-8w-lN7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-19" y="94"/>
+            <point key="canvasLocation" x="-662" y="23"/>
+        </scene>
+        <!--EditTodo-->
+        <scene sceneID="mwo-D8-TiR">
+            <objects>
+                <viewControllerPlaceholder storyboardName="EditTodo" id="WEa-Fd-VtZ" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="K6s-Tk-cnu"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5Cx-qB-cEW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="125" y="23"/>
         </scene>
     </scenes>
     <resources>
