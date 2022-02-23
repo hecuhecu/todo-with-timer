@@ -21,6 +21,7 @@ class ViewController: UIViewController {
         fpc.delegate = self
         fpc.layout = CustomFloatingPanelLayout()
         
+        navigationItem.backButtonTitle = "戻る"
         setupBarButton()
         
         todoItems = realm.objects(TodoData.self).sorted(byKeyPath: "order")

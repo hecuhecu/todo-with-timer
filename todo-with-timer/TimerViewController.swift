@@ -13,29 +13,28 @@ class TimerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = todo.title
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(editBarButtonTapped(_:)))        
-        
+        navigationItem.backButtonTitle = "戻る"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(editBarButtonTapped(_:)))
         timeLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 50, weight: .bold)
-        displayTime()
         invalidateButton(cancelButton)
-        if todo.timerValue - elapsedTime <= 0 || todo.isDone {
-            invalidateButton(startButton)
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        navigationItem.title = todo.title
+        displayTimerView()
+        elapsedTime = 0
+        if todo.timerValue - elapsedTime <= 0 || todo.isDone {
+            invalidateButton(startButton)
+        } else {
+            validateButton(startButton)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        if timer.isValid {
-            timer.invalidate()
-        }
+        timer.invalidate()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -63,6 +62,7 @@ extension TimerViewController {
             startTimer()
             changeToStop()
             validateButton(cancelButton)
+            navigationItem.rightBarButtonItem?.isEnabled = false
         }
     }
     
@@ -73,7 +73,8 @@ extension TimerViewController {
         changeToStart()
         invalidateButton(cancelButton)
         elapsedTime = 0
-        displayTime()
+        displayTimerView()
+        navigationItem.rightBarButtonItem?.isEnabled = true
     }
     
     private func startTimer() {
@@ -95,10 +96,12 @@ extension TimerViewController {
             }
             NotificationCenter.default.post(name: NSNotification.Name("reload"), object: nil)
         }
-        displayTime()
+        displayTimerView()
     }
     
-    private func displayTime() {
+    private func displayTimerView() {
+        navigationItem.title = todo.title
+        
         let hours = (todo.timerValue - elapsedTime) / 3600
         let minutes = (todo.timerValue - elapsedTime) / 60 % 60
         let seconds = (todo.timerValue - elapsedTime) % 60
