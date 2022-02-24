@@ -14,7 +14,13 @@ class CustomTableViewCell: UITableViewCell {
     }
 
     func setup(title: String, isDone: Bool, indexPath: IndexPath) {
+        let attributeString = NSMutableAttributedString(string: title)
+        let lineWeight = isDone ? 2 : 0
+        let lineRange = NSMakeRange(0, attributeString.length)
+        attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: lineWeight, range: lineRange)
+        titleLabel.attributedText = attributeString
         titleLabel.text = title
+        titleLabel.textColor = isDone ? .gray : .black
         checkButton.setImage(UIImage(systemName: isDone ? "checkmark.circle.fill" : "circle"), for: .normal)
         index = indexPath.row
     }
