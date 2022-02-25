@@ -24,6 +24,7 @@
 		FEBB20DB27B77EF100456BE3 /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBB20DA27B77EF100456BE3 /* TimerViewController.swift */; };
 		FEBB20DD27B77EFC00456BE3 /* Timer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FEBB20DC27B77EFC00456BE3 /* Timer.storyboard */; };
 		FEBB20DF27B7834700456BE3 /* TodoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBB20DE27B7834700456BE3 /* TodoData.swift */; };
+		FEDA751A27C8CD93006713B5 /* AlarmSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FEDA751927C8CD93006713B5 /* AlarmSound.mp3 */; };
 		FEDCC60427C512C500120881 /* EditTodo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FEDCC60327C512C500120881 /* EditTodo.storyboard */; };
 		FEDCC60627C512E000120881 /* EditTodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDCC60527C512E000120881 /* EditTodoViewController.swift */; };
 /* End PBXBuildFile section */
@@ -50,6 +51,7 @@
 		FEBB20DA27B77EF100456BE3 /* TimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
 		FEBB20DC27B77EFC00456BE3 /* Timer.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Timer.storyboard; sourceTree = "<group>"; };
 		FEBB20DE27B7834700456BE3 /* TodoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoData.swift; sourceTree = "<group>"; };
+		FEDA751927C8CD93006713B5 /* AlarmSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = AlarmSound.mp3; sourceTree = "<group>"; };
 		FEDCC60327C512C500120881 /* EditTodo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EditTodo.storyboard; sourceTree = "<group>"; };
 		FEDCC60527C512E000120881 /* EditTodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTodoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -120,6 +122,7 @@
 				FE64BD4227B109A4006190A5 /* InputTodo.storyboard */,
 				FEBB20DC27B77EFC00456BE3 /* Timer.storyboard */,
 				FEDCC60327C512C500120881 /* EditTodo.storyboard */,
+				FEDA751927C8CD93006713B5 /* AlarmSound.mp3 */,
 				FE64BD3727B0DACE006190A5 /* Assets.xcassets */,
 				FE64BD3927B0DACE006190A5 /* LaunchScreen.storyboard */,
 				FE64BD3C27B0DACE006190A5 /* Info.plist */,
@@ -187,6 +190,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FEDA751A27C8CD93006713B5 /* AlarmSound.mp3 in Resources */,
 				FEBB20DD27B77EFC00456BE3 /* Timer.storyboard in Resources */,
 				FE64BD3B27B0DACE006190A5 /* LaunchScreen.storyboard in Resources */,
 				FEA74B3827BE0BE600E5FDA2 /* CustomTableViewCell.xib in Resources */,

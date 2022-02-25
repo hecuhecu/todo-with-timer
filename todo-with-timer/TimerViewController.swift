@@ -1,17 +1,26 @@
 import UIKit
 import RealmSwift
+import AVFoundation
+import AudioToolbox
 
 class TimerViewController: UIViewController {
     @IBOutlet weak private var timeLabel: UILabel!
     @IBOutlet weak private var startButton: UIButton!
     @IBOutlet weak private var cancelButton: UIButton!
-    private let realm = try! Realm()
-    private var timer = Timer()
+    private var todoTimer = Timer()
+    private var vibrationTimer = Timer()
     private var elapsedTime = 0
+    private var alarmPlayer = AVAudioPlayer()
+    private let alarmPath = Bundle.main.bundleURL.appendingPathComponent("AlarmSound.mp3")
+    private let numberOfLoops = -1
+    private let realm = try! Realm()
     var todo: TodoData!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let audiosSession = AVAudioSession.sharedInstance()
+        try! audiosSession.setCategory(AVAudioSession.Category.playback, options: AVAudioSession.CategoryOptions.duckOthers)
         
         navigationItem.backButtonTitle = "戻る"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(editBarButtonTapped(_:)))
@@ -34,7 +43,7 @@ class TimerViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        timer.invalidate()
+        todoTimer.invalidate()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -55,8 +64,8 @@ extension TimerViewController {
     }
     
     @IBAction private func tapStartButton(_ sender: Any) {
-        if timer.isValid {
-            timer.invalidate()
+        if todoTimer.isValid {
+            todoTimer.invalidate()
             changeToResume()
         } else {
             startTimer()
@@ -67,8 +76,8 @@ extension TimerViewController {
     }
     
     @IBAction private func tapCancelButton(_ sender: Any) {
-        if timer.isValid {
-            timer.invalidate()
+        if todoTimer.isValid {
+            todoTimer.invalidate()
         }
         changeToStart()
         invalidateButton(cancelButton)
@@ -78,7 +87,7 @@ extension TimerViewController {
     }
     
     private func startTimer() {
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+        todoTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
             self.countDownTimer()
         }
     }
@@ -86,10 +95,13 @@ extension TimerViewController {
     private func countDownTimer() {
         elapsedTime += 1
         if todo.timerValue - elapsedTime <= 0 {
-            timer.invalidate()
+            todoTimer.invalidate()
             changeToStart()
             invalidateButton(startButton)
             invalidateButton(cancelButton)
+            
+            makeAlarm()
+            displayAlert()
             
             try! realm.write() {
                 todo.isDone = true
@@ -97,6 +109,35 @@ extension TimerViewController {
             NotificationCenter.default.post(name: NSNotification.Name("reload"), object: nil)
         }
         displayTimerView()
+    }
+    
+    private func makeAlarm() {
+        do {
+            alarmPlayer = try AVAudioPlayer(contentsOf: alarmPath, fileTypeHint: nil)
+            alarmPlayer.numberOfLoops = numberOfLoops
+            alarmPlayer.play()
+        } catch {
+            print("alarm error")
+        }
+        
+        AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+        vibrationTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+        }
+    }
+    
+    private func displayAlert() {
+        let alert = UIAlertController(title: todo.title, message: "", preferredStyle: UIAlertController.Style.alert)
+        let confirmAction = UIAlertAction(title: "完了", style: UIAlertAction.Style.default, handler: {
+            (action: UIAlertAction!) -> Void in
+            self.alarmPlayer.stop()
+            self.vibrationTimer.invalidate()
+            let audiosSession = AVAudioSession.sharedInstance()
+            try! audiosSession.setActive(false)
+        })
+        
+        alert.addAction(confirmAction)
+        present(alert, animated: true, completion: nil)
     }
     
     private func displayTimerView() {
@@ -110,7 +151,7 @@ extension TimerViewController {
     
     private func invalidateButton(_ button: UIButton) {
         button.isEnabled = false
-        button.setTitleColor(.systemGray, for: .normal)
+        button.setTitleColor(.tertiarySystemFill, for: .normal) //tertiaryLabel
     }
     
     private func validateButton(_ button: UIButton) {

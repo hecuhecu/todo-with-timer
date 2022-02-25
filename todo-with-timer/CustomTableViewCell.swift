@@ -2,8 +2,8 @@ import UIKit
 import RealmSwift
 
 class CustomTableViewCell: UITableViewCell {
-    @IBOutlet weak var checkButton: UIButton!
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet private weak var checkButton: UIButton!
+    @IBOutlet private weak var titleLabel: UILabel!
     private var todoItems: Results<TodoData>!
     private let realm = try! Realm()
     var index: Int!
