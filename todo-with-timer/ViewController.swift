@@ -1,6 +1,7 @@
 import UIKit
 import RealmSwift
 import FloatingPanel
+import DZNEmptyDataSet
 
 var orderSize = 0
 
@@ -18,6 +19,7 @@ class ViewController: UIViewController {
         tableView.register(UINib(nibName: "CustomTableViewCell", bundle: nil), forCellReuseIdentifier: "CustomCell")
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.emptyDataSetSource = self
         fpc.delegate = self
         fpc.layout = CustomFloatingPanelLayout()
         
@@ -182,6 +184,33 @@ extension ViewController: UITableViewDelegate {
     }
 }
 
+// MARK: - DZNEmptyDataSetSource
+extension ViewController: DZNEmptyDataSetSource {
+    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
+        var image = UIImage(named: "emptyTodo")
+        image = image?.resize(size: CGSize(width: 250, height: 250))
+        return image
+    }
+    
+    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        let text = "タスクが存在しません"
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.systemFont(ofSize: 22.0),
+            .foregroundColor: UIColor.black
+        ]
+        return NSAttributedString(string: text, attributes: attributes)
+    }
+    
+    func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        let text = "＋ボタンからタスクを追加できます"
+        return NSAttributedString(string: text)
+    }
+    
+    func backgroundColor(forEmptyDataSet scrollView: UIScrollView!) -> UIColor! {
+        return UIColor.systemGroupedBackground
+    }
+}
+
 // MARK: - FloatingPanelControllerDelegate
 extension ViewController: FloatingPanelControllerDelegate {
     func floatingPanelDidChangeState(_ fpc: FloatingPanelController) {
@@ -194,5 +223,23 @@ extension ViewController: FloatingPanelControllerDelegate {
     func floatingPanelWillRemove(_ fpc: FloatingPanelController) {
         NotificationCenter.default.post(name: NSNotification.Name("resign"), object: nil)
         toggleBarButtonItem()
+    }
+}
+
+// MARK: - UIImage
+extension UIImage {
+    func resize(size _size: CGSize) -> UIImage? {
+        let widthRatio = _size.width / size.width
+        let heightRatio = _size.height / size.height
+        let ratio = widthRatio < heightRatio ? widthRatio : heightRatio
+
+        let resizedSize = CGSize(width: size.width * ratio, height: size.height * ratio)
+
+        UIGraphicsBeginImageContextWithOptions(resizedSize, false, 0.0) // 変更
+        draw(in: CGRect(origin: .zero, size: resizedSize))
+        let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return resizedImage
     }
 }

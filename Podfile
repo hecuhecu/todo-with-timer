@@ -8,5 +8,6 @@ target 'todo-with-timer' do
   # Pods for todo-with-timer
   pod "RealmSwift"
   pod "FloatingPanel"
+  pod 'DZNEmptyDataSet'
 
 end

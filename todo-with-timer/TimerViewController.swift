@@ -26,6 +26,8 @@ class TimerViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(editBarButtonTapped(_:)))
         timeLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 50, weight: .bold)
         invalidateButton(cancelButton)
+        
+        alertHowToUse()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -42,7 +44,7 @@ class TimerViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
+
         todoTimer.invalidate()
     }
     
@@ -111,6 +113,18 @@ extension TimerViewController {
         displayTimerView()
     }
     
+    private func alertHowToUse() {
+        let visit = UserDefaults.standard.bool(forKey: "visit")
+        print(visit)
+        if !visit {
+            UserDefaults.standard.set(true, forKey: "visit")
+            let alert = UIAlertController(title: "ご注意", message: "バックグラウンドではタイマーが動きません。", preferredStyle: UIAlertController.Style.alert)
+            let confirmAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
+            alert.addAction(confirmAction)
+            present(alert, animated: true, completion: nil)
+        }
+    }
+    
     private func makeAlarm() {
         do {
             alarmPlayer = try AVAudioPlayer(contentsOf: alarmPath, fileTypeHint: nil)
@@ -151,7 +165,7 @@ extension TimerViewController {
     
     private func invalidateButton(_ button: UIButton) {
         button.isEnabled = false
-        button.setTitleColor(.tertiarySystemFill, for: .normal) //tertiaryLabel
+        button.setTitleColor(.tertiarySystemFill, for: .normal)
     }
     
     private func validateButton(_ button: UIButton) {
