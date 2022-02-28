@@ -14,6 +14,14 @@ class InputTodoViewController: UIViewController {
         textField.delegate = self
         timePicker.delegate = self
         timePicker.dataSource = self
+        
+        let hour = UILabel()
+        hour.text = "時間"
+        let min = UILabel()
+        min.text = "分"
+        let sec = UILabel()
+        sec.text = "秒"
+        timePicker.setPickerLabels(labels: [1: hour, 3: min, 5: sec])
 
         NotificationCenter.default.addObserver(self, selector: #selector(resignTextField(notification:)), name: NSNotification.Name("resign"), object: nil)
     }
@@ -25,8 +33,8 @@ class InputTodoViewController: UIViewController {
         }
         
         let hours = timePicker.selectedRow(inComponent: 0)
-        let minutes = timePicker.selectedRow(inComponent: 1)
-        let seconds = timePicker.selectedRow(inComponent: 2)
+        let minutes = timePicker.selectedRow(inComponent: 2)
+        let seconds = timePicker.selectedRow(inComponent: 4)
         
         let todo = TodoData()
         todo.title = textField.text!
@@ -62,14 +70,16 @@ extension InputTodoViewController: UITextFieldDelegate {
 // MARK: - UIPickerViewDataSource
 extension InputTodoViewController: UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 3
+        return 6
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch component {
         case 0:
             return 24
-        case 1, 2:
+        case 1, 3, 5:
+            return 1
+        case 2, 4:
             return 60
         default:
             return 0
@@ -79,7 +89,44 @@ extension InputTodoViewController: UIPickerViewDataSource {
 
 // MARK: - UIPickerViewDelegate
 extension InputTodoViewController: UIPickerViewDelegate {
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return row.description
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {        
+        switch component {
+        case 0, 2, 4:
+            return row.description
+        case 1, 3, 5:
+            return ""
+        default:
+            return "error"
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
+        return (UIScreen.main.bounds.size.width - 10) / 6
+    }
+}
+
+// MARK: - UIPickerView
+extension UIPickerView {
+    func setPickerLabels(labels: [Int:UILabel]) {
+        let fontSize: CGFloat = 20
+        let labelWidth: CGFloat = self.frame.size.width / CGFloat(self.numberOfComponents)
+        let y: CGFloat = (self.frame.size.height / 2) - (fontSize / 2)
+        
+        for i in 0..<self.numberOfComponents {
+            guard let label = labels[i] else { continue }
+            label.autoresizingMask = [
+                .flexibleTopMargin,
+                .flexibleLeftMargin,
+                .flexibleRightMargin,
+                .flexibleBottomMargin,
+                .flexibleWidth,
+                .flexibleHeight
+            ]
+            label.frame = CGRect(x: labelWidth * CGFloat(i), y: y, width: labelWidth, height: fontSize)
+            label.font = UIFont.systemFont(ofSize: fontSize, weight: .regular)
+            label.backgroundColor = .clear
+            label.textAlignment = NSTextAlignment.center
+            self.addSubview(label)
+        }
     }
 }

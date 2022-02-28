@@ -93,6 +93,7 @@ extension ViewController {
         let appearance = SurfaceAppearance()
         appearance.cornerRadius = 9.0
         fpc.surfaceView.appearance = appearance
+        fpc.surfaceView.grabberHandle.isHidden = true
         fpc.backdropView.dismissalTapGestureRecognizer.isEnabled = true
         fpc.addPanel(toParent: self)
         fpc.move(to: .full, animated: true, completion: nil)
@@ -235,7 +236,7 @@ extension UIImage {
 
         let resizedSize = CGSize(width: size.width * ratio, height: size.height * ratio)
 
-        UIGraphicsBeginImageContextWithOptions(resizedSize, false, 0.0) // 変更
+        UIGraphicsBeginImageContextWithOptions(resizedSize, false, 0.0)
         draw(in: CGRect(origin: .zero, size: resizedSize))
         let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
