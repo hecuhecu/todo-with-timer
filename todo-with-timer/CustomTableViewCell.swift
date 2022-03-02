@@ -20,7 +20,7 @@ class CustomTableViewCell: UITableViewCell {
         attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: lineWeight, range: lineRange)
         titleLabel.attributedText = attributeString
         titleLabel.text = title
-        titleLabel.textColor = isDone ? .gray : .black
+        titleLabel.textColor = isDone ? .gray : UIColor(displayP3Red: 0.30, green: 0.33, blue: 0.35, alpha: 1)
         checkButton.setImage(UIImage(systemName: isDone ? "checkmark.circle.fill" : "circle"), for: .normal)
         index = indexPath.row
     }

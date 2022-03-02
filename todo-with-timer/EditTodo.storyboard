@@ -4,7 +4,6 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -17,21 +16,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="lJH-fE-lYI">
-                                <rect key="frame" x="20" y="64" width="374" height="34"/>
+                                <rect key="frame" x="20" y="94" width="374" height="34"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                             </textField>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uCJ-gx-mqD">
-                                <rect key="frame" x="0.0" y="108" width="414" height="216"/>
+                                <rect key="frame" x="0.0" y="178" width="414" height="216"/>
                             </pickerView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
-                        <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
+                        <color key="backgroundColor" red="0.29536247253417969" green="0.33050838112831116" blue="0.35561889410018921" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="uCJ-gx-mqD" firstAttribute="top" secondItem="lJH-fE-lYI" secondAttribute="bottom" constant="10" id="6dc-hx-4e5"/>
+                            <constraint firstItem="uCJ-gx-mqD" firstAttribute="top" secondItem="lJH-fE-lYI" secondAttribute="bottom" constant="50" id="6dc-hx-4e5"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="lJH-fE-lYI" secondAttribute="trailing" constant="20" id="Cfw-Mw-tU6"/>
                             <constraint firstItem="uCJ-gx-mqD" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="KtN-RZ-AN7"/>
-                            <constraint firstItem="lJH-fE-lYI" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="20" id="aeg-Jh-U9k"/>
+                            <constraint firstItem="lJH-fE-lYI" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="50" id="aeg-Jh-U9k"/>
                             <constraint firstItem="lJH-fE-lYI" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="lhh-Qw-Edo"/>
                             <constraint firstItem="uCJ-gx-mqD" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="oWf-g6-oAf"/>
                         </constraints>
@@ -46,9 +45,4 @@
             <point key="canvasLocation" x="232" y="-38"/>
         </scene>
     </scenes>
-    <resources>
-        <systemColor name="systemGroupedBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-    </resources>
 </document>

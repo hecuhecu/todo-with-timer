@@ -15,13 +15,35 @@ class EditTodoViewController: UIViewController {
         
         timePicker.dataSource = self
         timePicker.delegate = self
+        setupTimePicker()
+        setupTimePickerLabel()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        let hours = timePicker.selectedRow(inComponent: 0)
+        let minutes = timePicker.selectedRow(inComponent: 2)
+        let seconds = timePicker.selectedRow(inComponent: 4)
+        try! realm.write() {
+            todo.timerValue = hours * 3600 + minutes * 60 + seconds
+        }
+    }
+}
+
+// MARK: - Functions
+extension EditTodoViewController {
+    private func setupTimePicker() {
         let hours = todo.timerValue / 3600
         let minutes = todo.timerValue / 60 % 60
         let seconds = todo.timerValue % 60
         timePicker.selectRow(hours, inComponent: 0, animated: true)
         timePicker.selectRow(minutes, inComponent: 2, animated: true)
         timePicker.selectRow(seconds, inComponent: 4, animated: true)
-        
+        timePicker.setValue(UIColor.systemGray5, forKey: "textColor")
+    }
+    
+    private func setupTimePickerLabel() {
         let hour = UILabel()
         hour.text = "時間"
         let min = UILabel()
@@ -29,19 +51,12 @@ class EditTodoViewController: UIViewController {
         let sec = UILabel()
         sec.text = "秒"
         timePicker.setPickerLabels(labels: [1: hour, 3: min, 5: sec])
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        let hours = timePicker.selectedRow(inComponent: 0)
-        let minutes = timePicker.selectedRow(inComponent: 2)
-        let seconds = timePicker.selectedRow(inComponent: 4)
-        
-        try! realm.write() {
-            todo.timerValue = hours * 3600 + minutes * 60 + seconds
-        }
+        timePicker.setValue(UIColor.systemGray5, forKey: "textColor")
     }
 }
 
+
+// MARK: - UITextFieldDelegate
 extension EditTodoViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField.text == "" {
@@ -58,6 +73,7 @@ extension EditTodoViewController: UITextFieldDelegate {
     }
 }
 
+// MARK: - UIPickerViewDatasource
 extension EditTodoViewController: UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 6
@@ -77,6 +93,7 @@ extension EditTodoViewController: UIPickerViewDataSource {
     }
 }
 
+// MARK: - UIPickerViewDelegate
 extension EditTodoViewController: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch component {
@@ -89,7 +106,4 @@ extension EditTodoViewController: UIPickerViewDelegate {
         }
     }
     
-    func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
-        return (UIScreen.main.bounds.size.width - 10) / 6
-    }
 }

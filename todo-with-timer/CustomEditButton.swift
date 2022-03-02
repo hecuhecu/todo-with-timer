@@ -1,6 +1,6 @@
 import UIKit
 
-class CustomEditBarButton: UIButton {
+class CustomEditButton: UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUp()
@@ -48,8 +48,8 @@ class CustomEditBarButton: UIButton {
     
     private func setUp() {
         setTitle("編集", for: .normal)
-        setTitleColor(.systemOrange, for: .normal)
-        titleLabel?.font = UIFont.systemFont(ofSize: 28, weight: .bold)
+        setTitleColor(UIColor(displayP3Red: 0.91, green: 0.84, blue: 0.45, alpha: 1), for: .normal)
+        titleLabel?.font = UIFont.systemFont(ofSize: 22, weight: .semibold)
         layer.shadowOffset = CGSize(width: 2, height: 2)
         layer.shadowOpacity = 0.8
         layer.shadowRadius = 3

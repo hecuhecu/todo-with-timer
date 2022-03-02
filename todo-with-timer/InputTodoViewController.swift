@@ -15,15 +15,18 @@ class InputTodoViewController: UIViewController {
         timePicker.delegate = self
         timePicker.dataSource = self
         
-        let hour = UILabel()
-        hour.text = "時間"
-        let min = UILabel()
-        min.text = "分"
-        let sec = UILabel()
-        sec.text = "秒"
-        timePicker.setPickerLabels(labels: [1: hour, 3: min, 5: sec])
+        setupTimePickerLabel()
+        addButton.layer.cornerRadius = 6.0
 
         NotificationCenter.default.addObserver(self, selector: #selector(resignTextField(notification:)), name: NSNotification.Name("resign"), object: nil)
+    }
+    
+    @IBAction func isEditingTextField(_ sender: Any) {
+        if textField.text == "" {
+            addButton.setTitle("閉じる", for: .normal)
+        } else {
+            addButton.setTitle("追加", for: .normal)
+        }
     }
     
     @IBAction private func tapAddButton(_ sender: UIButton) {
@@ -46,8 +49,9 @@ class InputTodoViewController: UIViewController {
             realm.add(todo)
         }
         
-        NotificationCenter.default.post(name: NSNotification.Name("reload"), object: nil)
         textField.text = ""
+        addButton.setTitle("閉じる", for: .normal)
+        NotificationCenter.default.post(name: NSNotification.Name("reload"), object: nil)
     }
     
 }
@@ -56,6 +60,17 @@ class InputTodoViewController: UIViewController {
 extension InputTodoViewController {
     @objc private func resignTextField(notification: NSNotification) {
         textField.resignFirstResponder()
+    }
+    
+    private func setupTimePickerLabel() {
+        let hour = UILabel()
+        hour.text = "時間"
+        let min = UILabel()
+        min.text = "分"
+        let sec = UILabel()
+        sec.text = "秒"
+        timePicker.setPickerLabels(labels: [1: hour, 3: min, 5: sec])
+        timePicker.setValue(UIColor.systemGray5, forKey: "textColor")
     }
 }
 
@@ -99,20 +114,16 @@ extension InputTodoViewController: UIPickerViewDelegate {
             return "error"
         }
     }
-    
-    func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
-        return (UIScreen.main.bounds.size.width - 10) / 6
-    }
 }
 
 // MARK: - UIPickerView
 extension UIPickerView {
     func setPickerLabels(labels: [Int:UILabel]) {
         let fontSize: CGFloat = 20
-        let labelWidth: CGFloat = self.frame.size.width / CGFloat(self.numberOfComponents)
-        let y: CGFloat = (self.frame.size.height / 2) - (fontSize / 2)
+        let labelWidth: CGFloat = frame.size.width / CGFloat(numberOfComponents)
+        let y: CGFloat = (frame.size.height / 2) - (fontSize / 2)
         
-        for i in 0..<self.numberOfComponents {
+        for i in 0..<numberOfComponents {
             guard let label = labels[i] else { continue }
             label.autoresizingMask = [
                 .flexibleTopMargin,
@@ -123,7 +134,8 @@ extension UIPickerView {
                 .flexibleHeight
             ]
             label.frame = CGRect(x: labelWidth * CGFloat(i), y: y, width: labelWidth, height: fontSize)
-            label.font = UIFont.systemFont(ofSize: fontSize, weight: .regular)
+            label.font = UIFont.systemFont(ofSize: fontSize, weight: .medium)
+            label.textColor = UIColor.systemGray5
             label.backgroundColor = .clear
             label.textAlignment = NSTextAlignment.center
             self.addSubview(label)

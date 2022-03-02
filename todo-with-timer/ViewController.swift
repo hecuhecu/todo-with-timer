@@ -8,7 +8,7 @@ var orderSize = 0
 class ViewController: UIViewController {
     @IBOutlet weak private var tableView: UITableView!
     private var todoItems: Results<TodoData>!
-    private var addBarButtonItem: UIBarButtonItem!
+    private var addButton: UIButton!
     private var editBarButtonItem: UIBarButtonItem!
     private let realm = try! Realm()
     private let fpc = FloatingPanelController()
@@ -22,9 +22,9 @@ class ViewController: UIViewController {
         tableView.emptyDataSetSource = self
         fpc.delegate = self
         fpc.layout = CustomFloatingPanelLayout()
-        
+    
         navigationItem.backButtonTitle = "戻る"
-        setupBarButton()
+        setupButton()
         
         todoItems = realm.objects(TodoData.self).sorted(byKeyPath: "order")
         updateTodoOrder()
@@ -55,17 +55,15 @@ class ViewController: UIViewController {
 
 // MARK: - Functions
 extension ViewController {
-    private func setupBarButton() {
-        let add = CustomAddBarButton()
-        let edit = CustomEditBarButton()
+    private func setupButton() {
+        let editButton = CustomEditButton()
+        addButton = CustomAddButton()
         
-        add.addTarget(self, action: #selector(addButtonTapped(_:)), for: .touchUpInside)
-        edit.addTarget(self, action: #selector(editButtonTapped(_:)), for: .touchUpInside)
+        editButton.addTarget(self, action: #selector(editButtonTapped(_:)), for: .touchUpInside)
+        addButton.addTarget(self, action: #selector(addButtonTapped(_:)), for: .touchUpInside)
         
-        addBarButtonItem = UIBarButtonItem(customView: add)
-        editBarButtonItem = UIBarButtonItem(customView: edit)
-        
-        navigationItem.rightBarButtonItem = addBarButtonItem
+        self.view.addSubview(addButton)
+        editBarButtonItem = UIBarButtonItem(customView: editButton)
         navigationItem.leftBarButtonItem = editBarButtonItem
     }
     
@@ -80,11 +78,6 @@ extension ViewController {
         orderSize = num
     }
     
-    private func toggleBarButtonItem() {
-        addBarButtonItem.customView?.isHidden.toggle()
-        editBarButtonItem.customView?.isHidden.toggle()
-    }
-    
     @objc private func addButtonTapped(_ sender: UIButton) {
         let storyboard = UIStoryboard(name: "InputTodo", bundle: nil)
         let contentVC = storyboard.instantiateViewController(withIdentifier: "InputTodo") as! InputTodoViewController
@@ -97,8 +90,8 @@ extension ViewController {
         fpc.backdropView.dismissalTapGestureRecognizer.isEnabled = true
         fpc.addPanel(toParent: self)
         fpc.move(to: .full, animated: true, completion: nil)
-        
-        toggleBarButtonItem()
+                
+        editBarButtonItem.customView?.isHidden.toggle()
     }
     
     @objc private func editButtonTapped(_ sender: UIButton) {
@@ -111,7 +104,7 @@ extension ViewController {
             sender.setTitle("編集", for: .normal)
         }
         
-        addBarButtonItem.customView?.isHidden.toggle()
+        addButton.isHidden.toggle()
     }
     
     @objc private func reloadCollectionView(notification: NSNotification) {
@@ -189,7 +182,7 @@ extension ViewController: UITableViewDelegate {
 extension ViewController: DZNEmptyDataSetSource {
     func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
         var image = UIImage(named: "emptyTodo")
-        image = image?.resize(size: CGSize(width: 250, height: 250))
+        image = image?.resize(size: CGSize(width: 200, height: 200))
         return image
     }
     
@@ -197,7 +190,7 @@ extension ViewController: DZNEmptyDataSetSource {
         let text = "タスクが存在しません"
         let attributes: [NSAttributedString.Key: Any] = [
             .font: UIFont.systemFont(ofSize: 22.0),
-            .foregroundColor: UIColor.black
+            .foregroundColor: UIColor.systemGray5
         ]
         return NSAttributedString(string: text, attributes: attributes)
     }
@@ -208,7 +201,7 @@ extension ViewController: DZNEmptyDataSetSource {
     }
     
     func backgroundColor(forEmptyDataSet scrollView: UIScrollView!) -> UIColor! {
-        return UIColor.systemGroupedBackground
+        return UIColor(displayP3Red: 0.30, green: 0.33, blue: 0.35, alpha: 1)
     }
 }
 
@@ -223,7 +216,7 @@ extension ViewController: FloatingPanelControllerDelegate {
     
     func floatingPanelWillRemove(_ fpc: FloatingPanelController) {
         NotificationCenter.default.post(name: NSNotification.Name("resign"), object: nil)
-        toggleBarButtonItem()
+        editBarButtonItem.customView?.isHidden.toggle()
     }
 }
 
@@ -233,7 +226,6 @@ extension UIImage {
         let widthRatio = _size.width / size.width
         let heightRatio = _size.height / size.height
         let ratio = widthRatio < heightRatio ? widthRatio : heightRatio
-
         let resizedSize = CGSize(width: size.width * ratio, height: size.height * ratio)
 
         UIGraphicsBeginImageContextWithOptions(resizedSize, false, 0.0)

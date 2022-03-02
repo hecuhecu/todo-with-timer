@@ -24,7 +24,9 @@ class TimerViewController: UIViewController {
         
         navigationItem.backButtonTitle = "戻る"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(editBarButtonTapped(_:)))
-        timeLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 50, weight: .bold)
+        timeLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 54, weight: .bold)
+        setupButton(startButton)
+        setupButton(cancelButton)
         invalidateButton(cancelButton)
         
         alertHowToUse()
@@ -86,6 +88,14 @@ extension TimerViewController {
         elapsedTime = 0
         displayTimerView()
         navigationItem.rightBarButtonItem?.isEnabled = true
+    }
+    
+    private func setupButton(_ button: UIButton) {
+        button.layer.cornerRadius = 18.0
+        button.layer.shadowOffset = CGSize(width: 2, height: 2)
+        button.layer.shadowOpacity = 0.8
+        button.layer.shadowRadius = 3
+        button.layer.shadowColor = UIColor.gray.cgColor
     }
     
     private func startTimer() {
@@ -165,12 +175,12 @@ extension TimerViewController {
     
     private func invalidateButton(_ button: UIButton) {
         button.isEnabled = false
-        button.setTitleColor(.tertiarySystemFill, for: .normal)
+        button.alpha = 0.2
     }
     
     private func validateButton(_ button: UIButton) {
         button.isEnabled = true
-        button.setTitleColor(UIColor(red: 0.26, green: 0.26, blue: 0.26, alpha: 1.0), for: .normal)
+        button.alpha = 1.0
     }
     
     private func changeToStart() {

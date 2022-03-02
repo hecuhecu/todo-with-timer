@@ -9,5 +9,6 @@ target 'todo-with-timer' do
   pod "RealmSwift"
   pod "FloatingPanel"
   pod 'DZNEmptyDataSet'
+  pod 'Google-Mobile-Ads-SDK'
 
 end
