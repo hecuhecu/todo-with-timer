@@ -14,25 +14,15 @@ class ViewController: UIViewController {
     private var editBarButtonItem: UIBarButtonItem!
     private let realm = try! Realm()
     private let fpc = FloatingPanelController()
-
-    func adUnitID(key: String) -> String? {
-        guard let adUnitIDs = Bundle.main.object(forInfoDictionaryKey: "AdUnitIDs") as? [String: String] else {
-            return nil
-        }
-        return adUnitIDs[key]
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         if let id = adUnitID(key: "banner") {
             bannerView.adUnitID = id
             bannerView.rootViewController = self
             bannerView.load(GADRequest())
         }
-        
-        
         
         tableView.register(UINib(nibName: "CustomTableViewCell", bundle: nil), forCellReuseIdentifier: "CustomCell")
         tableView.dataSource = self
@@ -73,6 +63,13 @@ class ViewController: UIViewController {
 
 // MARK: - Functions
 extension ViewController {
+    private func adUnitID(key: String) -> String? {
+        guard let adUnitIDs = Bundle.main.object(forInfoDictionaryKey: "AdUnitIDs") as? [String: String] else {
+            return nil
+        }
+        return adUnitIDs[key]
+    }
+    
     private func setupButton() {
         let editButton = CustomEditButton()
         addButton = CustomAddButton()
@@ -226,7 +223,7 @@ extension ViewController: DZNEmptyDataSetSource {
 // MARK: - FloatingPanelControllerDelegate
 extension ViewController: FloatingPanelControllerDelegate {
     func floatingPanelDidChangeState(_ fpc: FloatingPanelController) {
-        if fpc.state == .tip {
+        if fpc.state == .half {
             NotificationCenter.default.post(name: NSNotification.Name("resign"), object: nil)
             NotificationCenter.default.post(name: NSNotification.Name("remove"), object: nil)
         }

@@ -1,9 +1,17 @@
 import UIKit
 
+protocol backgroundTimerDelegate: Any {
+    func setElapsedBackgroundTime(_ elapsedTime:Int)
+    func deleteTimer()
+    func checkIsBackground()
+    func setLocalNotifications()
+    var timerIsBackground:Bool { set get }
+}
+
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
+    var delegate: backgroundTimerDelegate?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -22,11 +30,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidBecomeActive(_ scene: UIScene) {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
+        
+        if delegate?.timerIsBackground == true {
+            let calender = Calendar(identifier: .gregorian)
+            let date1 = UserDefaults.standard.value(forKey: "date1") as! Date
+            let date2 = Date()
+            let elapsedTime = calender.dateComponents([.second], from: date1, to: date2).second!
+            delegate?.setElapsedBackgroundTime(elapsedTime)
+            
+            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["interval"])
+        }
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
         // Called when the scene will move from an active state to an inactive state.
         // This may occur due to temporary interruptions (ex. an incoming phone call).
+        
+        UserDefaults.standard.set(Date(), forKey: "date1")
+        delegate?.setLocalNotifications()
+        delegate?.checkIsBackground()
+        delegate?.deleteTimer()
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {

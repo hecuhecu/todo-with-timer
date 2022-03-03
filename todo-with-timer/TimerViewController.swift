@@ -15,9 +15,19 @@ class TimerViewController: UIViewController {
     private let numberOfLoops = -1
     private let realm = try! Realm()
     var todo: TodoData!
+    var timerIsBackground = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let sceneDelegate = windowScene.delegate as? SceneDelegate else {
+                  return
+              }
+        sceneDelegate.delegate = self
+        
+        let center = UNUserNotificationCenter.current()
+        center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in }
         
         let audiosSession = AVAudioSession.sharedInstance()
         try! audiosSession.setCategory(AVAudioSession.Category.playback, options: AVAudioSession.CategoryOptions.duckOthers)
@@ -46,7 +56,7 @@ class TimerViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-
+        
         todoTimer.invalidate()
     }
     
@@ -70,6 +80,7 @@ extension TimerViewController {
     @IBAction private func tapStartButton(_ sender: Any) {
         if todoTimer.isValid {
             todoTimer.invalidate()
+            timerIsBackground = false
             changeToResume()
         } else {
             startTimer()
@@ -83,6 +94,7 @@ extension TimerViewController {
         if todoTimer.isValid {
             todoTimer.invalidate()
         }
+        timerIsBackground = false
         changeToStart()
         invalidateButton(cancelButton)
         elapsedTime = 0
@@ -107,25 +119,27 @@ extension TimerViewController {
     private func countDownTimer() {
         elapsedTime += 1
         if todo.timerValue - elapsedTime <= 0 {
-            todoTimer.invalidate()
-            changeToStart()
-            invalidateButton(startButton)
-            invalidateButton(cancelButton)
-            
+            finishTimer()
             makeAlarm()
             displayAlert()
-            
-            try! realm.write() {
-                todo.isDone = true
-            }
-            NotificationCenter.default.post(name: NSNotification.Name("reload"), object: nil)
         }
         displayTimerView()
     }
     
+    private func finishTimer() {
+        todoTimer.invalidate()
+        changeToStart()
+        invalidateButton(startButton)
+        invalidateButton(cancelButton)
+        try! realm.write() {
+            todo.isDone = true
+        }
+        NotificationCenter.default.post(name: NSNotification.Name("reload"), object: nil)
+    }
+    
     private func alertHowToUse() {
         let visit = UserDefaults.standard.bool(forKey: "visit")
-        print(visit)
+
         if !visit {
             UserDefaults.standard.set(true, forKey: "visit")
             let alert = UIAlertController(title: "ご注意", message: "バックグラウンドではタイマーが動きません。", preferredStyle: UIAlertController.Style.alert)
@@ -193,5 +207,44 @@ extension TimerViewController {
     
     private func changeToResume() {
         startButton.setTitle("再開", for: .normal)
+    }
+}
+
+//MARK: - backgroundTimerDelegate
+extension TimerViewController: backgroundTimerDelegate {
+    func setLocalNotifications() {
+        if todoTimer.isValid {
+            let content = UNMutableNotificationContent()
+            content.body = todo.title
+            content.sound = UNNotificationSound.init(named: UNNotificationSoundName(rawValue: "AlarmSound.mp3"))
+            let timeInterval = Double(todo.timerValue - elapsedTime)
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInterval, repeats: false)
+            let request = UNNotificationRequest(identifier: "Time Interval", content: content, trigger: trigger)
+            UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+        }
+    }
+    
+    func setElapsedBackgroundTime(_ elapsedTime: Int) {
+        self.elapsedTime += elapsedTime
+        if todo.timerValue - self.elapsedTime <= 0 {
+            self.elapsedTime = todo.timerValue
+            displayTimerView()
+            finishTimer()
+        } else {
+            displayTimerView()
+            startTimer()
+        }
+    }
+    
+    func deleteTimer() {
+        if todoTimer.isValid {
+            todoTimer.invalidate()
+        }
+    }
+    
+    func checkIsBackground() {
+        if todoTimer.isValid {
+            timerIsBackground = true
+        }
     }
 }

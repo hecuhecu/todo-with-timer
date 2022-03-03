@@ -106,4 +106,7 @@ extension EditTodoViewController: UIPickerViewDelegate {
         }
     }
     
+    func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
+        return (UIScreen.main.bounds.size.width - 10) / 6
+    }
 }

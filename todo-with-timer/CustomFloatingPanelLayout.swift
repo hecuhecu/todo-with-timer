@@ -33,7 +33,7 @@ class CustomFloatingPanelLayout: FloatingPanelLayout {
         }
     }
     let position: FloatingPanelPosition = .bottom
-    let initialState: FloatingPanelState = .half
+    let initialState: FloatingPanelState = .tip
     var anchors: [FloatingPanelState: FloatingPanelLayoutAnchoring] {
         return [
             .full: FloatingPanelLayoutAnchor(absoluteInset: positionOfFull, edge: .top, referenceGuide: .safeArea),
@@ -47,7 +47,7 @@ class CustomFloatingPanelLayout: FloatingPanelLayout {
         case .full, .half:
             return 0.3
         default:
-            return 0.0
+            return 0.3
         }
     }
 }
