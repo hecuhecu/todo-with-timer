@@ -2,19 +2,37 @@ import UIKit
 import RealmSwift
 import FloatingPanel
 import DZNEmptyDataSet
+import GoogleMobileAds
 
 var orderSize = 0
 
 class ViewController: UIViewController {
     @IBOutlet weak private var tableView: UITableView!
+    @IBOutlet weak private var bannerView: GADBannerView!
     private var todoItems: Results<TodoData>!
     private var addButton: UIButton!
     private var editBarButtonItem: UIBarButtonItem!
     private let realm = try! Realm()
     private let fpc = FloatingPanelController()
+
+    func adUnitID(key: String) -> String? {
+        guard let adUnitIDs = Bundle.main.object(forInfoDictionaryKey: "AdUnitIDs") as? [String: String] else {
+            return nil
+        }
+        return adUnitIDs[key]
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        if let id = adUnitID(key: "banner") {
+            bannerView.adUnitID = id
+            bannerView.rootViewController = self
+            bannerView.load(GADRequest())
+        }
+        
+        
         
         tableView.register(UINib(nibName: "CustomTableViewCell", bundle: nil), forCellReuseIdentifier: "CustomCell")
         tableView.dataSource = self

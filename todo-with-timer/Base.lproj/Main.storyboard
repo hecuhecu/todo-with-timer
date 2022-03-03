@@ -17,30 +17,41 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="EMr-tn-CeG">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="738"/>
                                 <color key="backgroundColor" red="0.29536247253417969" green="0.33050838112831116" blue="0.35561889410018921" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="sectionIndexBackgroundColor" red="0.29536247253417969" green="0.33050838112831116" blue="0.35561889410018921" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SCP-zA-sgC" customClass="GADBannerView">
+                                <rect key="frame" x="0.0" y="826" width="414" height="50"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="fQS-Yg-S46"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="0.29536247253417969" green="0.33050838112831116" blue="0.35561889410018921" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" red="0.29536247253417969" green="0.33050838112831116" blue="0.35561889410018921" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="EMr-tn-CeG" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="38Z-mC-JYT"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="SCP-zA-sgC" secondAttribute="trailing" id="0s5-T6-0Dd"/>
+                            <constraint firstItem="SCP-zA-sgC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Bts-KO-JCY"/>
                             <constraint firstItem="EMr-tn-CeG" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="CaV-qe-Suq"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="EMr-tn-CeG" secondAttribute="trailing" id="KlA-Kk-Q49"/>
+                            <constraint firstItem="SCP-zA-sgC" firstAttribute="top" secondItem="EMr-tn-CeG" secondAttribute="bottom" id="ihg-vS-iAr"/>
                             <constraint firstItem="EMr-tn-CeG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="rPd-85-Cvj"/>
+                            <constraint firstAttribute="bottom" secondItem="SCP-zA-sgC" secondAttribute="bottom" constant="20" id="tJ5-cY-uGk"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Mi2-Jt-HAv"/>
                     <connections>
+                        <outlet property="bannerView" destination="SCP-zA-sgC" id="6Dc-rh-Qn5"/>
                         <outlet property="tableView" destination="EMr-tn-CeG" id="CPj-ZN-Icx"/>
                         <segue destination="14O-hf-Zne" kind="show" identifier="showTimerSegue" id="Y0j-Oq-hBg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="944.92753623188412" y="93.75"/>
+            <point key="canvasLocation" x="944.85981308411215" y="93.30453563714903"/>
         </scene>
         <!--Timer-->
         <scene sceneID="6ez-Ng-ji3">
@@ -94,6 +105,9 @@
         </scene>
     </scenes>
     <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemGray5Color">
             <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

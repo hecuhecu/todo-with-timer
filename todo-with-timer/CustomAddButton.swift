@@ -48,7 +48,7 @@ class CustomAddButton: UIButton {
     
     private func setUp() {
         let screen = UIScreen.main.bounds.size
-        frame = CGRect(x: screen.width - 70, y: screen.height - 70, width: 50, height: 50)
+        frame = CGRect(x: screen.width - 70, y: screen.height - 130, width: 50, height: 50)
         setTitle("＋", for: .normal)
         setTitleColor(UIColor(displayP3Red: 0.91, green: 0.84, blue: 0.45, alpha: 1), for: .normal)
         titleLabel?.font = UIFont.systemFont(ofSize: 34, weight: .semibold)
