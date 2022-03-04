@@ -40,7 +40,6 @@ extension EditTodoViewController {
         timePicker.selectRow(hours, inComponent: 0, animated: true)
         timePicker.selectRow(minutes, inComponent: 2, animated: true)
         timePicker.selectRow(seconds, inComponent: 4, animated: true)
-        timePicker.setValue(UIColor.systemGray5, forKey: "textColor")
     }
     
     private func setupTimePickerLabel() {
@@ -51,7 +50,7 @@ extension EditTodoViewController {
         let sec = UILabel()
         sec.text = "秒"
         timePicker.setPickerLabels(labels: [1: hour, 3: min, 5: sec])
-        timePicker.setValue(UIColor.systemGray5, forKey: "textColor")
+        timePicker.setValue(UIColor.black, forKey: "textColor")
     }
 }
 

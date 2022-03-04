@@ -142,7 +142,7 @@ extension TimerViewController {
 
         if !visit {
             UserDefaults.standard.set(true, forKey: "visit")
-            let alert = UIAlertController(title: "ご注意", message: "バックグラウンドではタイマーが動きません。", preferredStyle: UIAlertController.Style.alert)
+            let alert = UIAlertController(title: "ご注意", message: "バックグラウンドでアラームを鳴らすには通知をオンにしていただく必要があります。", preferredStyle: UIAlertController.Style.alert)
             let confirmAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
             alert.addAction(confirmAction)
             present(alert, animated: true, completion: nil)

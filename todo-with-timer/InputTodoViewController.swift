@@ -70,7 +70,7 @@ extension InputTodoViewController {
         let sec = UILabel()
         sec.text = "秒"
         timePicker.setPickerLabels(labels: [1: hour, 3: min, 5: sec])
-        timePicker.setValue(UIColor.systemGray5, forKey: "textColor")
+        timePicker.setValue(UIColor.black, forKey: "textColor")
     }
 }
 
@@ -139,7 +139,7 @@ extension UIPickerView {
             ]
             label.frame = CGRect(x: labelWidth * CGFloat(i), y: y, width: labelWidth, height: fontSize)
             label.font = UIFont.systemFont(ofSize: fontSize, weight: .medium)
-            label.textColor = UIColor.systemGray5
+            label.textColor = UIColor(displayP3Red: 0.30, green: 0.33, blue: 0.35, alpha: 1)
             label.backgroundColor = .clear
             label.textAlignment = NSTextAlignment.center
             self.addSubview(label)

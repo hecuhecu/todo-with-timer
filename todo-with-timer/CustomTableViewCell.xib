@@ -19,10 +19,10 @@
                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qDb-AQ-juB">
                         <rect key="frame" x="10" y="0.0" width="37" height="44"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="tintColor" red="0.29536247253417969" green="0.33050838112831116" blue="0.35561889410018921" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <state key="normal" title="Button"/>
                         <buttonConfiguration key="configuration" style="plain" image="circle" catalog="system" title="">
-                            <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" weight="semibold"/>
-                            <color key="baseForegroundColor" red="0.29536247253417969" green="0.33050838112831116" blue="0.35561889410018921" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" weight="medium"/>
                         </buttonConfiguration>
                         <connections>
                             <action selector="tapCheckButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="NWS-RO-zPr"/>
@@ -38,8 +38,7 @@
                 </subviews>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
-            <color key="backgroundColor" red="0.93019384145736694" green="0.83177119493484497" blue="0.37574934959411621" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-            <color key="tintColor" red="0.93019384145736694" green="0.83177119493484497" blue="0.37574934959411621" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="checkButton" destination="qDb-AQ-juB" id="FFo-H6-hcx"/>
                 <outlet property="titleLabel" destination="GcL-Jd-HaN" id="4Ce-OB-ya8"/>

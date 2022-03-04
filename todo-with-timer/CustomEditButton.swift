@@ -48,7 +48,7 @@ class CustomEditButton: UIButton {
     
     private func setUp() {
         setTitle("編集", for: .normal)
-        setTitleColor(UIColor(displayP3Red: 0.91, green: 0.84, blue: 0.45, alpha: 1), for: .normal)
+        setTitleColor(UIColor(displayP3Red: 0.30, green: 0.33, blue: 0.35, alpha: 1), for: .normal)
         titleLabel?.font = UIFont.systemFont(ofSize: 22, weight: .semibold)
         layer.shadowOffset = CGSize(width: 2, height: 2)
         layer.shadowOpacity = 0.8
