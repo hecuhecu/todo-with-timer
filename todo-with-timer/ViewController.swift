@@ -205,7 +205,7 @@ extension ViewController: DZNEmptyDataSetSource {
         let text = "タスクが存在しません"
         let attributes: [NSAttributedString.Key: Any] = [
             .font: UIFont.systemFont(ofSize: 22.0),
-            .foregroundColor: UIColor.systemGray5
+            .foregroundColor: UIColor(displayP3Red: 0.30, green: 0.33, blue: 0.35, alpha: 1)
         ]
         return NSAttributedString(string: text, attributes: attributes)
     }
@@ -216,7 +216,7 @@ extension ViewController: DZNEmptyDataSetSource {
     }
     
     func backgroundColor(forEmptyDataSet scrollView: UIScrollView!) -> UIColor! {
-        return UIColor(displayP3Red: 0.30, green: 0.33, blue: 0.35, alpha: 1)
+        return UIColor.systemGroupedBackground//
     }
 }
 

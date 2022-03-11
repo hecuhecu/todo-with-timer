@@ -11,7 +11,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GADMobileAds.sharedInstance().start(completionHandler: nil)
         
         UNUserNotificationCenter.current().requestAuthorization(
-            options: [.alert, .sound, .badge]){
+            options: [.alert, .sound]){
                 (granted, _) in
                 if granted{
                     UNUserNotificationCenter.current().delegate = self
@@ -41,6 +41,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 // MARK: - UNUserNotificationCenterDelegate
 extension AppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.sound, .badge])
+        if #available(iOS 14.0, *) {
+            completionHandler([[.banner, .list, .sound]])
+        } else {
+            completionHandler([[.alert, .sound]])
+        }
     }
 }
