@@ -6,6 +6,13 @@ class InputTodoViewController: UIViewController {
     @IBOutlet weak private var addButton: UIButton!
     @IBOutlet weak private var timePicker: UIPickerView!
     private let realm = try! Realm()
+    private let timePickerColor = UIColor { (traitCollection: UITraitCollection) -> UIColor in
+        if traitCollection.userInterfaceStyle == .dark {
+            return .white
+        } else {
+            return .black
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,7 +77,7 @@ extension InputTodoViewController {
         let sec = UILabel()
         sec.text = "秒"
         timePicker.setPickerLabels(labels: [1: hour, 3: min, 5: sec])
-        timePicker.setValue(UIColor.black, forKey: "textColor")
+        timePicker.setValue(timePickerColor, forKey: "textColor")
     }
 }
 

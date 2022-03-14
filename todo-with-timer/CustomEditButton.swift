@@ -1,6 +1,14 @@
 import UIKit
 
 class CustomEditButton: UIButton {
+    private let titleColor = UIColor { (traitCollection: UITraitCollection) -> UIColor in
+        if traitCollection.userInterfaceStyle == .dark {
+            return UIColor(displayP3Red: 0.95, green: 0.95, blue: 0.97, alpha: 1)
+        } else {
+            return UIColor(displayP3Red: 0.30, green: 0.33, blue: 0.35, alpha: 1)
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUp()
@@ -48,7 +56,7 @@ class CustomEditButton: UIButton {
     
     private func setUp() {
         setTitle("編集", for: .normal)
-        setTitleColor(UIColor(displayP3Red: 0.30, green: 0.33, blue: 0.35, alpha: 1), for: .normal)
+        setTitleColor(titleColor, for: .normal)
         titleLabel?.font = UIFont.systemFont(ofSize: 22, weight: .semibold)
         layer.shadowOffset = CGSize(width: 2, height: 2)
         layer.shadowOpacity = 0.8

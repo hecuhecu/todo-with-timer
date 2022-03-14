@@ -16,6 +16,13 @@ class TimerViewController: UIViewController {
     private let realm = try! Realm()
     var todo: TodoData!
     var timerIsBackground = false
+    private let labelColor = UIColor { (traitCollection: UITraitCollection) -> UIColor in
+        if traitCollection.userInterfaceStyle == .dark {
+            return UIColor(displayP3Red: 0.95, green: 0.95, blue: 0.97, alpha: 1)
+        } else {
+            return UIColor(displayP3Red: 0.30, green: 0.33, blue: 0.35, alpha: 1)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +42,7 @@ class TimerViewController: UIViewController {
         navigationItem.backButtonTitle = "戻る"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(editBarButtonTapped(_:)))
         timeLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 54, weight: .bold)
+        timeLabel.textColor = labelColor
         setupButton(startButton)
         setupButton(cancelButton)
         invalidateButton(cancelButton)
@@ -138,7 +146,6 @@ extension TimerViewController {
     }
     
     private func alertHowToUse() {
-        UserDefaults.standard.set(false, forKey: "visit")
         let visit = UserDefaults.standard.bool(forKey: "visit")
 
         if !visit {

@@ -21,7 +21,7 @@ class CustomTableViewCell: UITableViewCell {
         titleLabel.attributedText = attributeString
         titleLabel.text = title
         titleLabel.textColor = isDone ? .gray : UIColor(displayP3Red: 0.30, green: 0.33, blue: 0.35, alpha: 1)
-        checkButton.setImage(UIImage(systemName: isDone ? "checkmark.circle.fill" : "circle"), for: .normal)
+        checkButton.setImage(UIImage(systemName: isDone ? "checkmark.circle.fill" : "circle")?.resize(size: CGSize(width: 30, height: 30)), for: .normal)
         index = indexPath.row
     }
     
