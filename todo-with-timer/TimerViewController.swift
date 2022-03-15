@@ -2,11 +2,13 @@ import UIKit
 import RealmSwift
 import AVFoundation
 import AudioToolbox
+import GoogleMobileAds
 
 class TimerViewController: UIViewController {
     @IBOutlet weak private var timeLabel: UILabel!
     @IBOutlet weak private var startButton: UIButton!
     @IBOutlet weak private var cancelButton: UIButton!
+    @IBOutlet weak private var bannerView: GADBannerView!
     private var todoTimer = Timer()
     private var vibrationTimer = Timer()
     private var elapsedTime = 0
@@ -26,6 +28,12 @@ class TimerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let id = adUnitID(key: "banner") {
+            bannerView.adUnitID = id
+            bannerView.rootViewController = self
+            bannerView.load(GADRequest())
+        }
         
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let sceneDelegate = windowScene.delegate as? SceneDelegate else {
@@ -81,6 +89,13 @@ class TimerViewController: UIViewController {
 
 // MARK: - Functions
 extension TimerViewController {
+    private func adUnitID(key: String) -> String? {
+        guard let adUnitIDs = Bundle.main.object(forInfoDictionaryKey: "AdUnitIDs") as? [String: String] else {
+            return nil
+        }
+        return adUnitIDs[key]
+    }
+    
     @objc private func editBarButtonTapped(_ sender: UIBarButtonItem) {
         performSegue(withIdentifier: "showEditSegue", sender: nil)
     }

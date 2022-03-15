@@ -70,16 +70,28 @@
                                     <constraint firstAttribute="trailing" secondItem="P4w-HD-v2A" secondAttribute="trailing" id="IxZ-xk-cc3"/>
                                 </constraints>
                             </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f96-Ok-7wT" customClass="GADBannerView">
+                                <rect key="frame" x="0.0" y="832" width="414" height="50"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="5Em-2W-EQv"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="PAK-gv-EdI"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="f96-Ok-7wT" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="AW0-Ed-yzx"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="fqh-02-9aR" secondAttribute="trailing" id="SH6-jL-FXd"/>
+                            <constraint firstItem="f96-Ok-7wT" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="eBc-4R-AJH"/>
                             <constraint firstItem="fqh-02-9aR" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="iUT-if-IaZ"/>
                             <constraint firstItem="fqh-02-9aR" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" constant="60" id="kbI-jx-hYj"/>
+                            <constraint firstItem="f96-Ok-7wT" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" constant="20" id="xnF-g2-DTc"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="bannerView" destination="f96-Ok-7wT" id="iEl-r1-QLm"/>
                         <outlet property="cancelButton" destination="Mu4-Kc-duz" id="njw-ru-w03"/>
                         <outlet property="startButton" destination="LKA-w8-DX6" id="fbI-gT-6QN"/>
                         <outlet property="timeLabel" destination="P4w-HD-v2A" id="zc0-5N-53l"/>
@@ -102,6 +114,9 @@
         </scene>
     </scenes>
     <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemGroupedBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

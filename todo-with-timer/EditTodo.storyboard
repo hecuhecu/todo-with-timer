@@ -25,19 +25,31 @@
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uCJ-gx-mqD">
                                 <rect key="frame" x="0.0" y="178" width="414" height="216"/>
                             </pickerView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ovo-8q-LVR" customClass="GADBannerView">
+                                <rect key="frame" x="0.0" y="832" width="414" height="50"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="DW8-k0-30m"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="jif-Rk-f8f"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="ovo-8q-LVR" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" constant="20" id="40x-8G-X7s"/>
                             <constraint firstItem="uCJ-gx-mqD" firstAttribute="top" secondItem="lJH-fE-lYI" secondAttribute="bottom" constant="50" id="6dc-hx-4e5"/>
+                            <constraint firstItem="ovo-8q-LVR" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="AqA-Yn-jkh"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="lJH-fE-lYI" secondAttribute="trailing" constant="20" id="Cfw-Mw-tU6"/>
                             <constraint firstItem="uCJ-gx-mqD" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="KtN-RZ-AN7"/>
                             <constraint firstItem="lJH-fE-lYI" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="50" id="aeg-Jh-U9k"/>
+                            <constraint firstItem="ovo-8q-LVR" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="ext-pc-6p6"/>
                             <constraint firstItem="lJH-fE-lYI" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="lhh-Qw-Edo"/>
                             <constraint firstItem="uCJ-gx-mqD" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="oWf-g6-oAf"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="bannerView" destination="ovo-8q-LVR" id="Lad-Ky-T8R"/>
                         <outlet property="textField" destination="lJH-fE-lYI" id="zy0-z7-xz1"/>
                         <outlet property="timePicker" destination="uCJ-gx-mqD" id="YC9-0I-3XZ"/>
                     </connections>
@@ -48,6 +60,9 @@
         </scene>
     </scenes>
     <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemGroupedBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

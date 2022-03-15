@@ -1,9 +1,11 @@
 import UIKit
 import RealmSwift
+import GoogleMobileAds
 
 class EditTodoViewController: UIViewController {
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var timePicker: UIPickerView!
+    @IBOutlet weak private var bannerView: GADBannerView!
     private let realm = try! Realm()
     var todo: TodoData!
     private let timePickerColor = UIColor { (traitCollection: UITraitCollection) -> UIColor in
@@ -16,6 +18,12 @@ class EditTodoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let id = adUnitID(key: "banner") {
+            bannerView.adUnitID = id
+            bannerView.rootViewController = self
+            bannerView.load(GADRequest())
+        }
         
         textField.delegate = self
         textField.text = todo.title
@@ -42,6 +50,13 @@ class EditTodoViewController: UIViewController {
 
 // MARK: - Functions
 extension EditTodoViewController {
+    private func adUnitID(key: String) -> String? {
+        guard let adUnitIDs = Bundle.main.object(forInfoDictionaryKey: "AdUnitIDs") as? [String: String] else {
+            return nil
+        }
+        return adUnitIDs[key]
+    }
+    
     private func setupTimePicker() {
         let hours = todo.timerValue / 3600
         let minutes = todo.timerValue / 60 % 60
