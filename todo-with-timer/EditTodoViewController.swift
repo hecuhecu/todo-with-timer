@@ -45,6 +45,7 @@ class EditTodoViewController: UIViewController {
         try! realm.write() {
             todo.timerValue = hours * 3600 + minutes * 60 + seconds
         }
+        NotificationCenter.default.post(name: NSNotification.Name("reload"), object: nil)
     }
 }
 
